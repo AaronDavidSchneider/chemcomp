@@ -20,5 +20,10 @@ Install `chemcomp`:
 
 Adjust paths in `chemcomp/helper/main_helper` if you need different directories for output and config.
 
+## Thanks:
+- I would like to thank Bertram Bitsch for his enormous support during the development of this code and for continuing to use the code together with his students.
+- I would like to thank Cornelis Dullemond for providing the solver which (in adapted version) is used to solve the gas viscous disk equation and dust transport equation.
+- I would like to thank everyone, who has already used chemcomp in their work and has contributed in fixing small bugs.
+
 ## Help:
 Check the [WIKI](https://chemcomp.readthedocs.io/en/latest/ "wiki")
