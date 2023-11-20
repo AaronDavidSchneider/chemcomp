@@ -1,0 +1,25 @@
+par_1:
+  vals: [ 6.0, 7.0 ]
+  name: a_p
+  section: config_planet
+
+par_2:
+  vals: [ 1.0e-4 ]
+  name: ALPHA
+  section: config_disk
+
+par_3:
+  vals: [ 0.0 ]
+  name: CH
+  section: chemistry
+
+par_4:
+  vals: [ 0.2, 0.5 ]
+  name: t_0
+  section: config_planet
+
+
+double_disks: False
+save_disk: True
+output_name: WASP77_paper3
+

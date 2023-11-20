@@ -1,0 +1,4 @@
+numpydoc
+ipython
+nbsphinx
+numpy

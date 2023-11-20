@@ -1,0 +1,28 @@
+par_1:
+  logspace: [-0.999,1,21]
+  name: a_p
+  section: config_planet
+
+par_2:
+  vals: [ False ]
+  name: temp_evol
+  section: config_disk
+
+par_3:
+  vals: [ False ]
+  name: apply_gap_profile
+  section: config_planet
+
+par_4:
+  vals: [ False ]
+  name: evaporation
+  section: config_disk
+
+par_5:
+  vals: [ 1.0e-4,5.0e-4,1.0e-3 ]
+  name: ALPHA
+  section: config_disk
+
+double_disks: False
+save_disk: True
+output_name: nomig_nogap_planets_paper1_ref

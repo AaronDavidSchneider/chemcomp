@@ -1,0 +1,14 @@
+par_1:
+  arange: [1.0, 50.2, 0.2]
+  name: a_p
+  section: config_planet
+
+par_2:
+  logspace: [ -4.301029995663981, -2.301029995663981, 20 ]
+  name: ALPHA
+  section: config_disk
+
+double_disks: False
+save_disk: False
+save_interval: 5e10  # time in years
+output_name: paper3_fixed_CH

@@ -1,0 +1,58 @@
+#!/usr/bin/python3
+import argparse
+import os
+import time
+
+try:
+    from yaml import CLoader as Loader, CDumper as Dumper
+except ImportError:
+    from yaml import Loader, Dumper
+from yaml import load
+
+from chemcomp.helpers import run_pipeline, JOB_PATH
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--job_file",
+        "-j",
+        help="specify your config file (relative path to main)",
+        default=os.path.join(JOB_PATH, "default.yaml"),
+    )
+    parser.add_argument(
+        "--delete",
+        "-d",
+        help="specify if you want to delete all files 0=false, 1=true",
+        default="1",
+    )
+
+    parser.add_argument(
+        "--config_file",
+        "-c",
+        help="specify your config file (only name of file in CONFIG_PATH)",
+        default="config",
+    )
+
+    parser.add_argument(
+        "--overwrite",
+        "-o",
+        help="specify if you want to overwrite existing simulations",
+        default="0",
+    )
+
+    args = parser.parse_args()
+
+    stream = open(args.job_file, "r")
+    job = load(stream, Loader=Loader)
+    delete = True if args.delete == "1" else False
+    continue_job = True if args.overwrite == "0" else False
+
+    if continue_job:
+        print("We will pickup on already existing simulations. Specify -o 1, if you want a fresh start")
+
+    config = os.path.basename(args.config_file).split(".")[0]
+
+
+    t = time.time()
+    run_pipeline(job=job, delete=delete, config=config, continue_job=continue_job)
+    print("Total time needed: ", time.time() - t)

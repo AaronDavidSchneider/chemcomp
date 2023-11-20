@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+import argparse
+import os
+import time
+
+import numpy
+
+from chemcomp.helpers import run_setup, CONFIG_PATH
+
+numpy.seterr(all='raise')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--config_file",
+        "-c",
+        help="specify your config file (relative path to main)",
+        default=os.path.join(CONFIG_PATH, "config.yaml"),
+    )
+    args = parser.parse_args()
+
+    t = time.time()
+
+    run_setup(args.config_file)
+    print("execution took: {:.3f}s".format(time.time() - t))
