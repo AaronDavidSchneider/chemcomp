@@ -12,7 +12,7 @@ move into directory:
 
 Install conda environment:
 
-`conda create -n chemcomp astropy numpy scipy numba matplotlib pyyaml PyTables h5py`
+`conda create -n chemcomp numpy "astropy>=4.0" scipy matplotlib pyyaml jupyter parse h5py pip pytables`
 
 Install `chemcomp`:
 
@@ -21,4 +21,4 @@ Install `chemcomp`:
 Adjust paths in `chemcomp/helper/main_helper` if you need different directories for output and config.
 
 ## Help:
-Check the [WIKI](https://chemcomp-wiki.readthedocs.io/en/latest/ "wiki")
+Check the [WIKI](https://chemcomp.readthedocs.io/en/latest/ "wiki")
