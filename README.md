@@ -4,7 +4,7 @@ Modeling the chemical composition of gas giants by accretion of pebbles, planete
 ## install:
 clone project:
 
-`git clone git@github.com:chemcomppla/chemcomp.git`
+`git clone https://github.com/AaronDavidSchneider/chemcomp.git`
 
 move into directory:
 
