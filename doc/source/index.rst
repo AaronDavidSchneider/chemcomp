@@ -1,8 +1,3 @@
-.. cubedsphere documentation master file, created by
-   sphinx-quickstart on Mon Jan 11 14:18:49 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to chemcomp's documentation!
 =======================================
 Modeling the chemical composition of gas giants by accretion of pebbles and gas.
@@ -46,9 +41,6 @@ Included planet physics:
 
 The physical model is in depth explained in `(Schneider & Bitsch 2021a) <https://ui.adsabs.harvard.edu/abs/2021arXiv210513267S/abstract>`_. This wiki is only meant for explanations on the structure of `chemcomp`.
 
-.. note::
-   Please contact me if you would like to get access to the code.
-
 .. toctree::
    :maxdepth: 4
    :caption: Contents
@@ -67,5 +59,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
-Copyright 2021 Aaron Schneider. Feel free to contact me for any questions via `mail <mailto:Aaron.Schneider@nbi.ku.dk>`_.
-Do not publish any results obtained without consultation.
+Copyright 2023 Aaron Schneider. Feel free to contact me for any questions via `mail <mailto:Aaron.Schneider@nbi.ku.dk>`_.

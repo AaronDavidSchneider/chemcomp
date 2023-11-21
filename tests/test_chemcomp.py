@@ -36,7 +36,6 @@ def test_compare_reference_minimal(all_references_testdata):
         with tables.open_file(f, mode='r') as f:
             data[o] = {}
             data[o]['sigma_g'] = np.array(f.root.disk.sigma_g)
-            data[o]['sigma_dust'] = np.array(f.root.disk.sigma_dust)
             data[o]['t'] = np.array(f.root.disk.t) / Myr  # convert to Myr
             data[o]['r'] = np.array(f.root.disk.r) / AU  # convert to AU
 

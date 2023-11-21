@@ -1,6 +1,9 @@
 # chemcomp
 Modeling the chemical composition of gas giants by accretion of pebbles, planetesimals and gas.
 
+## Usage:
+If you use this code in your work and found it useful, please cite [Schneider & Bitsch (2021a)](https://ui.adsabs.harvard.edu/abs/2021A&A...654A..71S)
+
 ## install:
 clone project:
 

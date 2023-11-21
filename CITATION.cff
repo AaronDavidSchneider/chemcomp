@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the following:"
+authors:
+  - family-names: Schneider
+    given-names: Aaron David
+  - family-names: Bitsch
+    given-names: Bertram
+title: "How drifting and evaporating pebbles shape giant planets. I. Heavy element content and atmospheric C/O"
+version: "1.0"    
+date-released: 2021-10-01
+doi: "10.1051/0004-6361/202039640"    
+url: https://github.com/AaronDavidSchneider/chemcomp

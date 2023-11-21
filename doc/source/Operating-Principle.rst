@@ -7,9 +7,6 @@ Operating Principle
 
 ``chemcomp`` provides a platform to simulate the above described physics. It includes a disk module (attributes are defined on a log-radial grid, can be changed in config file) that deals with the formation of pebbles as well as the dynamics of gas and pebbles. It calculates the temperature of the disk and the temperature dependent compositions of gas and pebbles by also including effects induced by the existance of evaporation lines.
 
-.. Note:: Needs to be updated to be in line with paper version of code
-
-
 The code also contains a planet module that handles growth and migration of a single planet. The planet module acts as the supervisor of the disk module and collects the matter available in the disk.
 
 The operating principle of the code can also be divided into these two modules. Each time step begins with the calculation of the magnitude of the time step This is followed by the disk step. The disk step begins by computing the pebble growth and then computing the sink and source terms for the viscous evolution. We then have everything in place to evolve the surface densities in time. We use a modified version of the donor-cell scheme outlined in `Birnstiel et al. (2010) <https://ui.adsabs.harvard.edu/abs/2010A%26A...513A..79B/abstract>`_ to solve the viscous evolution and dust evolution for every molecular species. The realisation in `chemcomp` is an adapted version from the implementation in the unpublished code `DISKLAB`. This is then followed by the recomputation of the temperature.
