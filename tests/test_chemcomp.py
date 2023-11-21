@@ -1,5 +1,5 @@
 """
-General GCMT tests
+General chemcomp tests
 """
 import numpy as np
 import pytest
@@ -9,7 +9,7 @@ import astropy.units as u
 import astropy.constants as const
 import os
 
-from test_chemcomp_common import all_references_testdata
+from test_chemcomp_common import all_references_testdata, THRESHOLD_DISK, MAX_RTOL_DISK, MAX_RTOL_PLANET
 
 
 def test_compare_reference_minimal(all_references_testdata):
@@ -25,7 +25,7 @@ def test_compare_reference_minimal(all_references_testdata):
 
     # planet stuff
     for q in ['M', "M_a", "M_c", "M_z_gas", "M_z_peb", "comp_a", "comp_c", "pebiso"]:
-        np.testing.assert_allclose(old[q], new[q], err_msg=f"failed on {q}")
+        np.testing.assert_allclose(old[q], new[q], err_msg=f"failed on {q}", rtol=MAX_RTOL_PLANET)
 
     # disk stuff
     data = {}
@@ -42,14 +42,11 @@ def test_compare_reference_minimal(all_references_testdata):
 
     all_keys = data[out[0]].keys()
 
-    # mask out all the data at which we have infinitesimally small values
-    # -> numerical noise may be important there
-    threshold = 1e-60
     for key in all_keys:
         old_data = data[out[0]][key]
         new_data = data[out[1]][key]
-        mask = np.where(np.logical_and(old_data > threshold, new_data > threshold))
-        np.testing.assert_allclose(old_data[mask], new_data[mask], err_msg=f"failed on {key}")
+        mask = np.where(np.logical_and(old_data > THRESHOLD_DISK, new_data > THRESHOLD_DISK))
+        np.testing.assert_allclose(old_data[mask], new_data[mask], err_msg=f"failed on {key}", rtol=MAX_RTOL_DISK)
 
 
 
