@@ -1,0 +1,15 @@
+name: test_env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - numpy
+  - astropy>=4.0
+  - scipy
+  - matplotlib
+  - pyyaml
+  - jupyter
+  - parse
+  - h5py
+  - pytest
+  - pip

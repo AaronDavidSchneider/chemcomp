@@ -1,0 +1,23 @@
+name: Pylint
+
+on: [ push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.8", "3.10", "3.12" ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install -e .
+          pip install pylint
+      - name: Analysing the code with pylint
+        run: |
+          pylint $(git ls-files '*.py') --fail-under=9.5 --ignore-paths=doc,gcm_toolkit/tests --disable=R0913,R0914,C0415,E0401,E0402,C0103

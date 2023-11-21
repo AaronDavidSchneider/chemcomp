@@ -1,0 +1,62 @@
+# This uses actios:
+#  checkout: https://github.com/actions/checkout
+#  cache: https://github.com/actions/cache
+#  codecov-action: https://github.com/codecov/codecov-action
+
+name: CI
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+        # Nothing scheduled, just PRs and pushes
+        #  schedule:
+      #    - cron: "0 0 * * *" # Daily at midnight
+
+jobs:
+  build:
+    name: Build (${{ matrix.python-version }} | ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ "ubuntu-latest" ]
+        python-version: [ "3.8", "3.12" ]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache conda
+        uses: actions/cache@v3
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{ hashFiles('ci/environment-${{ matrix.python-version }}.yml') }}
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          activate-environment: test_env # Defined in ci/environment*.yml
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          use-mamba: true
+          python-version: ${{ matrix.python-version }}
+          environment-file: ci/environment-${{ matrix.python-version }}.yml
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+      - name: Set up conda environment
+        shell: bash -l {0}
+        run: |
+          python -m pip install -e .
+          conda list
+      - name: Update timestep in config
+        uses: fjogeleit/yaml-update-action@main
+        with:
+          valueFile: 'config/config.yaml'
+          propertyPath: 'defaults.DEF_TIMESTEP'
+          value: 500
+          commitChange: false
+      - name: Run chemcomp
+        shell: bash -l {0}
+        run: |
+          chemcomp_main -c config/config.yaml
+      - name: Compare with reference simulation
+        shell: bash -l {0}
+        run: |
+          py.test

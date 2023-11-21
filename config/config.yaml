@@ -59,7 +59,7 @@ defaults:
   DEF_R_OUT:                    1000     # outer r boundary (in AU)
   DEF_GRIDSIZE:                 500      # radial gridsize
   DEF_LIN_SPACING:              False    # Spacing of radial grid
-  DEF_TIMESTEP:                 500      # custom timestep in years (use 10 years to be safe)
+  DEF_TIMESTEP:                 10      # custom timestep in years (use 10 years to be safe)
   DEF_T_END:                    100      # Maximum simulation duration (in Myr), will cancel before if termination conditions are fulfilled
 
 output:
