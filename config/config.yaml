@@ -8,7 +8,6 @@ config_disk:
   M0:                           0.128      # Diskmass in solar masses
   R0:                           137        # Disk radius in AU
   DTG_total:                    0.02       # total solid to gas ratio
-  DTG_pla:                      0.000      # please use 0, thanks. Planetesimal model needs to be changed
   static:                       False      # static disk means no gas/dust evolution
   evaporation:                  True       # use evaporation and condensation (according to the model of Schneider & Bitsch 2021a)
   static_stokes:                False      # use a static stokes number for the large grain population (set stokes number using STOKES in config_pebble_accretion)
@@ -18,7 +17,7 @@ config_disk:
   evap_width:                   1.0e-3     # width of the evaporation front in AU (see Schneider & Bitsch 2021a)
 
 chemistry:
-  FeH: 0.0          # iron Fraction relative to hydrogen, log relative to the sun
+  FeH: 0.0          # iron Fraction relative to hydrogen, log relative to the sun, note that this is not the dust to gas ratio!
   SH: 0.0           # like above for sulfur. Note that this is possible for every abundancy
   use_FeH: False    # use FeH proxy fit according to Bitsch, Battestini 2020, not compatible with the complete model
   C_frac: 0.2       # Fraction of C/H in carbon grains (will be reduced from CH4)
@@ -59,7 +58,7 @@ defaults:
   DEF_R_OUT:                    1000     # outer r boundary (in AU)
   DEF_GRIDSIZE:                 500      # radial gridsize
   DEF_LIN_SPACING:              False    # Spacing of radial grid
-  DEF_TIMESTEP:                 10      # custom timestep in years (use 10 years to be safe)
+  DEF_TIMESTEP:                 500      # custom timestep in years (use 10 years to be safe)
   DEF_T_END:                    100      # Maximum simulation duration (in Myr), will cancel before if termination conditions are fulfilled
 
 output:

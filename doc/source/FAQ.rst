@@ -7,7 +7,4 @@ If you want to contribute feel free to create a pull request! This way others ca
 
 Where do I find a list of Parameters?
 """""""""""""""""""""""""""""""""""""
-Head over to the Overview of Files -> config.yaml
-
-
-.. note:: Probably more to come
+Head over to the Configuration -> config.yaml

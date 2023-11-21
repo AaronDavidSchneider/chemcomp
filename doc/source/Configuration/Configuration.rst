@@ -1,5 +1,5 @@
-Overview of files
------------------
+Configuration
+-------------
 
 .. code-block :: bash
 
@@ -29,7 +29,6 @@ We will discuss these in more detail below.
 
    Config-File
    Job-File
-   Slurm-File
 
 
 chemcomp_main
@@ -50,7 +49,7 @@ Parameters that are set in the config file can be found :ref:`here <config.yaml>
 chemcomp_pipeline
 ^^^^^^^^^^^^^^^^^
 
-Wrapper for running multiple configurations. Uses ``dask-jobqueue``. Execute with:
+Wrapper for running multiple configurations. Execute with:
 
 .. code-block :: bash
 
@@ -67,20 +66,7 @@ Explanations of the job file can be found :ref:`here <job.yaml>`.
 
 :Note: Your execution did not finish? Don't worry. You can continue your runs with ``-o 0``, which will only runs on those parameters again, that did not yet finish.
 
-chemcomp_pipeline_slurm
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Unlike ``chemcomp_pipeline``, ``chemcomp_pipeline_slurm`` is build for execution on a slurm cluster.
-This run script takes identical arguments, but adds an additional flag for a file with slurm arguments:
-
-.. code-block :: bash
-
-   chemcomp_pipeline_slurm [-h/--help][-c/--config_file][-d/--delete][-j/--job_file][-o/overwrite][-s/--slurm_file]
-
-* ``-s`` specifies the path to the slurm file.
-
-Explanations about the slurm file can be found :ref:`here <slurm.yaml>`.
-
+You can find an example of how to use ``chemcomp_pipeline`` in the ``cluster_examples`` folder.
 
 The chemcomp directory
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -96,7 +82,6 @@ The ``chemcomp/chemcomp`` directory is the directory where the main code resides
    │   ├── _accretion_class.py     # framework for accretion models
    │   ├── gas.py                  # gas accretion model
    │   ├── pebbles.py              # pebble accretion model
-   │   └── planetesimals.py        # planetesimal accretion model
    ├── disks
    │   ├── _0pacity
    │   │   ├── __init__.py
@@ -104,14 +89,9 @@ The ``chemcomp/chemcomp`` directory is the directory where the main code resides
    │   │   ├── meanopac5.dat       # opacity lookup table
    │   │   └── opacity_models.py   # delivers the opacities
    │   ├── __init__.py
-   │   ├── _chemistry.py           # Bitsch2020 composition model
-   │   ├── _chemistry_new.py       # SchneiderBitsch2020 composition model
+   │   ├── _chemistry.py       # SchneiderBitsch2020 composition model
    │   ├── _disk_class.py          # general disk model (parent of individual disks)
-   │   ├── aaron.py                # analytical visc heating. Do not use.
-   │   ├── bert.py                 # weird disk from bert
-   │   ├── ida.py                  # weird Ida2016 disk
    │   ├── kees.py                 # visc heating that works
-   │   ├── micha.py                # Michas disk. Do not use.
    │   ├── mmsn.py                 # simple mmsn disk with Hayashi H/R.
    │   └── twopop.py               # disk used in twopop.
    ├── helpers
@@ -142,7 +122,7 @@ The code is structured in four main modules:
 +=====================================+=====================================+==============================================================================+
 | :ref:`Disk <Disk Module>`           |         ``_disk_class``             | Deals with the disk related physics (e.g. dust growth, visc evolution, etc.) |
 +-------------------------------------+-------------------------------------+------------------------------------------------------------------------------+
-| :ref:`Chemistry <Chemistry Module>` | ``_chemistry_new`` / ``_chemistry`` |                     Chemical compositions used in ``Disk``.                  |
+| :ref:`Chemistry <Chemistry Module>` |          ``_chemistry``             |                     Chemical compositions used in ``Disk``.                  |
 +-------------------------------------+-------------------------------------+------------------------------------------------------------------------------+
 | :ref:`Planet <Planet Module>`       |        ``_planet_class``            |                Controls the other modules. Grows and migrates.               |
 +-------------------------------------+-------------------------------------+------------------------------------------------------------------------------+

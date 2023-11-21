@@ -1,9 +1,0 @@
-par_1:
-  vals: [ 1.0e-2, 1.0e-4,5.0e-4,1.0e-3 ]
-  name: ALPHA
-  section: config_disk
-
-
-output_name: twopop
-double_disks: False
-save_disk: True

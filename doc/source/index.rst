@@ -18,7 +18,6 @@ Included disk physics:
 
 * viscous disk evolution `(e.g. Lynden-Bell & Pringle 1974) <https://ui.adsabs.harvard.edu/abs/1974MNRAS.168..603L/abstract>`_
 * pebble growth & evolution applying the two populations model `(Birnstiel et al. 2012) <https://ui.adsabs.harvard.edu/abs/2012A%26A...539A.148B/abstract>`_
-* planetesimal formation `(Lenz et al. 2019) <https://ui.adsabs.harvard.edu/abs/2019ApJ...874...36L/abstract>`_ (outdated and not included in original paper)
 * evaporation and condensation at evaporation lines `(Schneider & Bitsch 2021a) <https://ui.adsabs.harvard.edu/abs/2021arXiv210513267S/abstract>`_
 * chemical compositions `(Schneider & Bitsch 2021a) <https://ui.adsabs.harvard.edu/abs/2021arXiv210513267S/abstract>`_
 
@@ -29,7 +28,6 @@ Included planet physics:
 * thermal torque `(Masset et al. 2017) <https://ui.adsabs.harvard.edu/abs/2017MNRAS.472.4204M/abstract>`_
 * Dynamical torques `(Paardekooper et al. 2014) <https://ui.adsabs.harvard.edu/abs/2014MNRAS.444.2031P/abstract>`_
 * Pebble Accretion `(Johansen & Lambrechts 2017) <https://ui.adsabs.harvard.edu/abs/2017AREPS..45..359J/abstract>`_
-* Planetesimal Accretion `(Johansen & Bitsch 2019) <https://ui.adsabs.harvard.edu/abs/2019A%26A...631A..70J/abstract>`_ (outdated and not included in original paper)
 * Gas accretion (`Machida et al. 2010 <https://ui.adsabs.harvard.edu/abs/2010MNRAS.405.1227M/abstract>`_, `Bitsch et al. 2015 <https://ui.adsabs.harvard.edu/abs/2015A%26A...582A.112B/abstract>`_, `Bergez-Casalou et al. 2020 <https://ui.adsabs.harvard.edu/abs/2020arXiv201000485B/abstract>`_)
 
 
@@ -58,8 +56,8 @@ The physical model is in depth explained in `(Schneider & Bitsch 2021a) <https:/
    Installation
    Usage
    Operating-Principle
-   File-Structure/File-Structure
-   Object-Structure/Object-Structure
+   Configuration/Configuration
+   Structure/Structure
    Output
    FAQ
 

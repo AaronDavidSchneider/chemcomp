@@ -1,7 +1,7 @@
 Accretion Module
 ^^^^^^^^^^^^^^^^
 
-Used in the flavours of pebble, planetesimal and gas accretion. Calculates the accretion rates.
+Used in the flavours of pebble and gas accretion. Calculates the accretion rates.
 
 Important Functions
 """""""""""""""""""
@@ -9,7 +9,7 @@ Important Functions
 * **calc_m_dot()**
 
 is called by the planet at each timestep to update the recalculate the accretion rates.
-This method is overloaded by the child classes (pebbles, planetesimals, gas).
+This method is overloaded by the child classes (pebbles, gas).
 
 * **_init_params()**
 

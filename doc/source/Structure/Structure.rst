@@ -1,9 +1,10 @@
-Object Structure
-----------------
+Structure
+---------
 
 ``chemcomp`` uses object oriented programming.
 It is vital that you familiarise with OOP in python. Otherwise you will not understand how ``chemcomp`` works.
 
+Please find the docs of the individual modules here:
 
 .. toctree::
    :maxdepth: 1

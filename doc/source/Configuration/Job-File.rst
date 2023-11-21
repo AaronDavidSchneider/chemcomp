@@ -1,8 +1,8 @@
 Job.yaml
 ^^^^^^^^
 Job files can be used for grid simulations where all parameters that are searched on are combined with each other.
-The idea is that you have several par_{i} sections in the job.yaml that each overwrite one config parameter.
-We use np.meshgrid under the hood to combine all possible parameters.
+The idea is that you have several ``par_{i}`` sections in the job.yaml that each overwrite one config parameter.
+We use ``np.meshgrid`` under the hood to combine all possible parameters.
 
 .. code-block :: yaml
 
@@ -27,7 +27,7 @@ We use np.meshgrid under the hood to combine all possible parameters.
      arange: [0.1, 1.0, 0.2]
      section: config_planet
    output_name: thorngren
-   four_disks: True
+   double_disks: True
    save_interval: 5e10  # only output at the end when planet has already formed
 
 This example runs 1200 simulations (4x4x3x5x5) for every of the two cases of SB21 (plain, evap).
@@ -60,7 +60,7 @@ Use either ``vals`` if you want to give the values explicitly or ``arange``, ``l
 +------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Parameter        | Usage                                                                                                                                                             |
 +==================+===================================================================================================================================================================+
-|``four_disks``    | ``True`` if you want to simulate the two cases of SB21 (plain, evap) or ``False`` if you don't (e.g. only your config is used). Naming sounds counterintuitive... |
+|``double_disks``  | ``True`` if you want to simulate the two cases of SB21 (plain, evap) or ``False`` if you don't (e.g. only your config is used).                                   |
 +------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 |``save_disk``     | ``True`` if you want to additionally save disk quantities else ``False``                                                                                          |
 +------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------+

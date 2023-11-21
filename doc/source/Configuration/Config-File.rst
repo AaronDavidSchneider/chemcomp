@@ -48,8 +48,6 @@ A config file contains the following sections:
 +-----------------------------------+----------------------------------------------------+
 | ``config_pebble_accretion``       | ``PebbleAccretion``                                |
 +-----------------------------------+----------------------------------------------------+
-| ``config_planetesimal_accretion`` | ``PlanetesimalAccretion``                          |
-+-----------------------------------+----------------------------------------------------+
 | ``config_gas_accretion``          | ``GasAccretion``                                   |
 +-----------------------------------+----------------------------------------------------+
 | ``chemistry``                     | ``Chemistry``                                      |
@@ -84,7 +82,6 @@ In case of doubt check the ``__init__()`` methods of the respective classes!
     M0:                           0.128      # Diskmass in solar masses
     R0:                           137        # Disk radius in AU
     DTG_total:                    0.02       # total solid to gas ratio
-    DTG_pla:                      0.000      # please use 0, thanks. Planetesimal model needs to be changed
     static:                       False      # static disk means no gas/dust evolution
     evaporation:                  True       # use evaporation and condensation (according to the model of Schneider & Bitsch 2021a)
     static_stokes:                False      # use a static stokes number for the large grain population (set stokes number using STOKES in config_pebble_accretion)
@@ -94,7 +91,7 @@ In case of doubt check the ``__init__()`` methods of the respective classes!
     evap_width:                   1.0e-3     # width of the evaporation front in AU (see Schneider & Bitsch 2021a)
 
   chemistry:
-    FeH: 0.0          # iron Fraction relative to hydrogen, log relative to the sun
+    FeH: 0.0          # iron Fraction relative to hydrogen, log relative to the sun, note that this is not the dust to gas ratio!
     SH: 0.0           # like above for sulfur. Note that this is possible for every abundancy
     use_FeH: False    # use FeH proxy fit according to Bitsch, Battestini 2020, not compatible with the complete model
     C_frac: 0.2       # Fraction of C/H in carbon grains (will be reduced from CH4)
@@ -123,21 +120,11 @@ In case of doubt check the ``__init__()`` methods of the respective classes!
     #STOKES:                       0.01     # static Stokes Number, only use with caution, only use in combination with disk config static_stokes
     u_frag:                       5.0       # fragmentation velocity in m/s. If you dont set it the code will use the Drazkowska2017 fragmentation velocity of 1 m/s for dry and 10 m/s for icy pebbles
     epsilon_p:                    0.5       # sticking efficiency
-    #H_p_over_H:                   0.1      # static pebble scale hight. Not used by default
-    #twoD:                         True     # Not used by default
-    #REGIME:                       Hill     # Not used by default
 
   config_gas_accretion:
     kappa_env:                    0.05      # envelope opacity
     f_machida:                    1         # Machida efficiency
     f_disk_max:                   1.0       # Maximum of the disk accretionrate
-
-  config_planetesimal_accretion:          # Outdated, set efficiency to 0 and DTG_pla to 0!
-    R_pla:                        50      # Planetesimal radius in km
-    rho_pla:                      1       # density of a single planetesimal (g/cm^3) = 1000 kg/m^3
-    stirring:                     1.0e-4  # planetesimal
-    efficiency:                   0.00    # Set the efficiency of planetesimal formation
-    pla_method:                   MPIA    # can be 'MPIA' or 'Drazkowska' in order to use the formation prescription of Lenz2019 or Drazkowska2017
 
   # modelling parameters
   defaults:
@@ -145,15 +132,11 @@ In case of doubt check the ``__init__()`` methods of the respective classes!
     DEF_R_OUT:                    1000     # outer r boundary (in AU)
     DEF_GRIDSIZE:                 500      # radial gridsize
     DEF_LIN_SPACING:              False    # Spacing of radial grid
-    DEF_TIMESTEP:                 10       # custom timestep in years (use 10 years to be safe)
+    DEF_TIMESTEP:                 500      # custom timestep in years (use 10 years to be safe)
+    DEF_T_END:                    100      # Maximum simulation duration (in Myr), will cancel before if termination conditions are fulfilled
 
   output:
     name:                        Bert     # name of output file. Will be overwritten if you use a job.yaml
     save_disk:                   True     # output the disk or dont save the disk (saving disk quantities is expensive in terms of storage)
     save_interval:               5000     # snapshot interval for output, time in years
     save_disk_interval:          20       # interval (relative to save_interval) at which disk quantities should be snapshoted/saved
-    plot_sigma_live:             False    # Some function to do live plots of certain quantities (see corresponding functions in the DataObject class)
-    # acc_files:                          # Outdated, shouldnt be used
-    #   - "pebble"
-    #   - "planetesimal"
-    #   - "gas"

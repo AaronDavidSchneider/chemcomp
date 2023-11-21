@@ -1,5 +1,5 @@
-Usage
------
+Quick Start
+-----------
 
 Install ``chemcomp`` (see :ref:`Installation`)
 
@@ -10,7 +10,7 @@ Activate environment:
    conda activate chemcomp
 
 
-create a run directory (e.g., chemcomp_runs) somewhere, where you want to run and store your simulations.
+create a run directory (e.g., ``chemcomp_runs``) somewhere, where you want to run and store your simulations.
 
 .. code-block:: bash
 
@@ -28,10 +28,7 @@ Configure your run and get it running.
    # probing multiple parameters:
    chemcomp_pipeline -c <path to config file> -j <path to job file> -d 0 -o 0
 
-   # probing multiple parameters with slurm:
-   chemcomp_pipeline_slurm -c <path to config file> -j <path to job file> -d 0 -o 0 -s <slurm file>
-
-Head over to see  :ref:`Overview of files` to understand the run scripts!
+Head over to see  :ref:`Configuration` to understand the run scripts!
 
 Running chemcomp will create the following folders (if not existing) in the current working directory:
 
