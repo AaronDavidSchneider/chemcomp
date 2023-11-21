@@ -25,7 +25,7 @@ def test_compare_reference_minimal(all_references_testdata):
 
     # planet stuff
     for q in ['M', "M_a", "M_c", "M_z_gas", "M_z_peb", "comp_a", "comp_c", "pebiso"]:
-        np.testing.assert_allclose(old[q], new[q])
+        np.testing.assert_allclose(old[q], new[q], err_msg=f"failed on {q}")
 
     # disk stuff
     data = {}
@@ -49,7 +49,7 @@ def test_compare_reference_minimal(all_references_testdata):
         old_data = data[out[0]][key]
         new_data = data[out[1]][key]
         mask = np.where(np.logical_and(old_data > threshold, new_data > threshold))
-        np.testing.assert_allclose(old_data[mask], new_data[mask])
+        np.testing.assert_allclose(old_data[mask], new_data[mask], err_msg=f"failed on {key}")
 
 
 
