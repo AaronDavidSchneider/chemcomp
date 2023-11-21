@@ -1,14 +1,13 @@
 Installation
 ------------
 
-Preperation
-^^^^^^^^^^^
+Optional Preperationsteps
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1. Get access to the code (contact `Aaron Schneider <mailto:aarondavid.schnieder@kuleuven.be>`_ for details)
-2. Create a github account
-3. crate an ssh-key and add it to your github account (see `here <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_)
+1. Create a github account
+2. crate an ssh-key and add it to your github account (see `here <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_)
+3. Familiarise with python
 4. Install `anaconda <https://www.anaconda.com/products/individual>`_
-5. Familiarise with python
 
 Installation
 ^^^^^^^^^^^^
@@ -30,7 +29,7 @@ Install `conda <https://www.anaconda.com/products/individual>`_. virtual environ
 
 .. code-block:: bash
 
-   conda create -n chemcomp astropy numpy scipy numba matplotlib pyyaml PyTables h5py
+   conda create -n chemcomp -f ci/environment-3.11.yml
    conda activate chemcomp
 
 
@@ -39,3 +38,13 @@ Install ``chemcomp``:
 .. code-block:: bash
 
    pip install -e .
+
+
+Installation from pypi
+^^^^^^^^^^^^^^^^^^^^^^
+
+Instead of cloning the repository, you can also install ``chemcomp`` from pypi
+
+.. code-block:: bash
+
+   pip install chemcomp
