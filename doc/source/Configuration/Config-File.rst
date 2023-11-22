@@ -1,6 +1,6 @@
 config.yaml
 ^^^^^^^^^^^
-.. Note:: The code is build to use cgs units! Either use cgs values or set unit conversion with `scale` in `chemcomp/helpers/import_config.py`
+.. warning:: The code is build to use cgs units internally. HOWEVER, most config entries come with a unit. If you want to introduce new parameters to the config file, either use cgs values or set unit conversion with `scale` in `chemcomp/helpers/import_config.py`.
 
 Example of unit conversion
 """"""""""""""""""""""""""

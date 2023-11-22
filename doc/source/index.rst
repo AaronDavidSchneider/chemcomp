@@ -46,12 +46,20 @@ The physical model is in depth explained in `(Schneider & Bitsch 2021a) <https:/
    :caption: Contents
 
    Installation
-   Usage
+   Quick-Start
    Operating-Principle
    Configuration/Configuration
    Structure/Structure
+   Disk-Only
    Output
+   Publications
    FAQ
+
+Acknowledgments
+---------------
+* Aaron Schneider would like to thank Bertram Bitsch for his enormous support during the development of this code and for continuing to use the code together with his students.
+* Aaron Schneider would like to thank Cornelis Dullemond for providing the solver which (in adapted version) is used to solve the gas viscous disk equation and dust transport equation.
+* Aaron Schneider would like to thank everyone, who has already used chemcomp in their work and has contributed in fixing small bugs.
 
 Indices and tables
 ==================

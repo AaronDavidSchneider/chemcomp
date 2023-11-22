@@ -1,0 +1,23 @@
+# Job file, used to generate the disk models in the first chemcomp paper (Schneider & Bitsch 2021a)
+
+par_1:
+  vals: [ 1.0e-3, 5.0e-4, 1.0e-4 ]
+  name: ALPHA
+  section: config_disk
+
+# the NoAccretion planet is a planet that does nothing, when it is planted into a disk.
+# It is therefore quite useful for disk only simulations
+par_2:
+  vals: [NoAccretion]
+  name: model
+  section: config_planet
+
+# setting t_0 to a value larger than the disk lifetime will prevent the planet to be planted
+par_3:
+  vals: [3.5]
+  section: config_planet
+  name: t_0
+
+double_disks: True # Do both, with evaporation and without evaporation and condensation
+save_disk: True  # output the disk quantities
+output_name: only_disk
