@@ -18,27 +18,33 @@ year = 3600 * 24 * 364.25
 
 
 class MMSN(Disk):
-    """ docstring for MMSN. Hayashi 1981, Weidenschilling 1977. Likely outdated"""
+    """docstring for MMSN. Hayashi 1981, Weidenschilling 1977. Likely outdated"""
 
-    def __init__(self,
-                 defaults,
-                 chemistry,
-                 M_STAR=1 * u.M_sun,
-                 R0=80.0 * u.au,
-                 ALPHA=1e-3,
-                 SIGMA_POWER=-15 / 14,
-                 ASPECT_POWER=2 / 7,
-                 SIGMA_0=1500 * u.g / (u.cm ** 2),
-                 ASPECT_0=0.033,
-                 **kwargs):
+    def __init__(
+        self,
+        defaults,
+        chemistry,
+        M_STAR=1 * u.M_sun,
+        R0=80.0 * u.au,
+        ALPHA=1e-3,
+        SIGMA_POWER=-15 / 14,
+        ASPECT_POWER=2 / 7,
+        SIGMA_0=1500 * u.g / (u.cm**2),
+        ASPECT_0=0.033,
+        **kwargs
+    ):
         super().__init__(defaults, M_STAR, ALPHA, chemistry, **kwargs)
-        self.sigma_init = SIGMA_0.cgs.value * (self.r / AU) ** SIGMA_POWER * np.exp(- self.r / R0.cgs.value)
+        self.sigma_init = (
+            SIGMA_0.cgs.value
+            * (self.r / AU) ** SIGMA_POWER
+            * np.exp(-self.r / R0.cgs.value)
+        )
         self.aspect_ratio = ASPECT_0 * (self.r / AU) ** ASPECT_POWER  # Hayashi 1981
         self._init_params(**kwargs)
         self.calc_opacity()
 
     def compute_disktmid(self, viscmodel=None):
-        """calculate the disk temperature. """
+        """calculate the disk temperature."""
         self.compute_cs_and_hp()
         self.compute_nu()
         self.calc_opacity()
@@ -49,14 +55,21 @@ class MMSN(Disk):
 
         This is equal to the pebble surface density, if DTG: peb has been set. Otherwise it contains the whole dust (including also the small grains)
         """
-        vr = 2.0 * self.stokes_number_pebbles / (self.stokes_number_pebbles ** 2. + 1.0) * self.eta * self.v_k
+        vr = (
+            2.0
+            * self.stokes_number_pebbles
+            / (self.stokes_number_pebbles**2.0 + 1.0)
+            * self.eta
+            * self.v_k
+        )
         Pebbleflux = 10e-4 * ME / year
-        self.sigma_dust = Pebbleflux / (2. * np.pi * self.r * vr)
+        self.sigma_dust = Pebbleflux / (2.0 * np.pi * self.r * vr)
 
         self.chemistry_solid, _ = self._chem.get_composition(self.T)
 
-        self.sigma_dust_components = self.chemistry_solid * self.sigma_dust[:, np.newaxis,
-                                                            np.newaxis]
+        self.sigma_dust_components = (
+            self.chemistry_solid * self.sigma_dust[:, np.newaxis, np.newaxis]
+        )
 
         self.sigma_dust_components[:, 1, 0] = np.zeros_like(self.sigma_g)
 
@@ -64,7 +77,7 @@ class MMSN(Disk):
         return
 
     def update_parameters(self):
-        """ compute the viscous evolution. This function is called whenever the planet calls the update."""
+        """compute the viscous evolution. This function is called whenever the planet calls the update."""
         self.compute_viscous_evolution()
 
     def calc_opacity_oplin(self):

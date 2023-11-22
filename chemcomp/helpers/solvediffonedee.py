@@ -1,8 +1,21 @@
 from .tridag import *
 
 
-def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False,
-                               extracond=None, retall=False):
+def solvediffonedee_components(
+    x,
+    y,
+    v,
+    d,
+    g,
+    s,
+    bcl,
+    bcr,
+    dt=None,
+    int=False,
+    upwind=False,
+    extracond=None,
+    retall=False,
+):
     """
     Vectorised version of solvediffonedee (works with sigma_g_components_mol)
 
@@ -121,7 +134,7 @@ def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, u
         #
         # Apply it to y
         #
-        a[0] = 0.
+        a[0] = 0.0
         b[0] = bcl[1] - bcl[0] / dxi[0]
         c[0] = bcl[0] / dxi[0]
         r[0] = bcl[2]
@@ -129,7 +142,7 @@ def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, u
         #
         # Apply it to y/g
         #
-        a[0] = 0.
+        a[0] = 0.0
         b[0] = (bcl[1] - bcl[0] / dxi[0]) / g[0]
         c[0] = (bcl[0] / dxi[0]) / g[1]
         r[0] = bcl[2]
@@ -142,7 +155,7 @@ def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, u
         #
         a[-1] = -bcr[0] / dxi[-1]
         b[-1] = bcr[1] + bcr[0] / dxi[-1]
-        c[-1] = 0.
+        c[-1] = 0.0
         r[-1] = bcr[2]
     else:
         #
@@ -150,7 +163,7 @@ def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, u
         #
         a[-1] = (-bcr[0] / dxi[-1]) / g[-2]
         b[-1] = (bcr[1] + bcr[0] / dxi[-1]) / g[-1]
-        c[-1] = 0.
+        c[-1] = 0.0
         r[-1] = bcr[2]
     #
     # Internal conditions, if present
@@ -196,7 +209,21 @@ def solvediffonedee_components(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, u
         return sol
 
 
-def solvediffonedee(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False, extracond=None, retall=False):
+def solvediffonedee(
+    x,
+    y,
+    v,
+    d,
+    g,
+    s,
+    bcl,
+    bcr,
+    dt=None,
+    int=False,
+    upwind=False,
+    extracond=None,
+    retall=False,
+):
     """
     Solve the 1-D linear advection-diffusion equation with boundary conditions,
     either in stationary state, or as an implicit time step.
@@ -312,7 +339,7 @@ def solvediffonedee(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False
         #
         # Apply it to y
         #
-        a[0] = 0.
+        a[0] = 0.0
         b[0] = bcl[1] - bcl[0] / dxi[0]
         c[0] = bcl[0] / dxi[0]
         r[0] = bcl[2]
@@ -320,7 +347,7 @@ def solvediffonedee(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False
         #
         # Apply it to y/g
         #
-        a[0] = 0.
+        a[0] = 0.0
         b[0] = (bcl[1] - bcl[0] / dxi[0]) / g[0]
         c[0] = (bcl[0] / dxi[0]) / g[1]
         r[0] = bcl[2]
@@ -333,7 +360,7 @@ def solvediffonedee(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False
         #
         a[-1] = -bcr[0] / dxi[-1]
         b[-1] = bcr[1] + bcr[0] / dxi[-1]
-        c[-1] = 0.
+        c[-1] = 0.0
         r[-1] = bcr[2]
     else:
         #
@@ -341,7 +368,7 @@ def solvediffonedee(x, y, v, d, g, s, bcl, bcr, dt=None, int=False, upwind=False
         #
         a[-1] = (-bcr[0] / dxi[-1]) / g[-2]
         b[-1] = (bcr[1] + bcr[0] / dxi[-1]) / g[-1]
-        c[-1] = 0.
+        c[-1] = 0.0
         r[-1] = bcr[2]
     #
     # Internal conditions, if present
@@ -439,7 +466,9 @@ def getfluxonedee(x, y, v, d, g, int=False, upwind=False, oned=False):
     # Now compute the flux
     #
     if not oned:
-        flux = b[:, np.newaxis, np.newaxis] * y[:-1] + c[:, np.newaxis, np.newaxis] * y[1:]
+        flux = (
+            b[:, np.newaxis, np.newaxis] * y[:-1] + c[:, np.newaxis, np.newaxis] * y[1:]
+        )
     else:
         flux = b * y[:-1] + c * y[1:]
     #

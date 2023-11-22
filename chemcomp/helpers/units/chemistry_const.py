@@ -66,9 +66,9 @@ MassV = 50.9415
 MassC = 12.0  # C in terms of H
 
 #   Masses in terms of H (atomic unit)
-MassCO = MassC + MassO  #28.0  # CO mass in terms of H
+MassCO = MassC + MassO  # 28.0  # CO mass in terms of H
 MassCH4 = MassC + 4 * MassH  # CH4 in terms of H
-MassCO2 = MassC + 2 * MassO   # CO2 in terms of H
+MassCO2 = MassC + 2 * MassO  # CO2 in terms of H
 MassH2O = MassO + 2 * MassH  # H20 in terms of H
 
 MassFe2O3 = 2 * MassFe + 3 * MassO
@@ -78,7 +78,7 @@ MassMgSiO3 = MassMg + MassSi + 3 * MassO  # MgSiO3 in terms of H
 MassMg2SiO4 = 2 * MassMg + MassSi + 4 * MassO  # MgSiO3 in terms of H
 MassNH3 = 3 * MassH + MassN
 MassN2 = 2 * MassN
-MassH2S = 2 * MassH  + MassS
+MassH2S = 2 * MassH + MassS
 MassNaAlSi3O8 = MassNa + MassAl + 3 * MassSi + 8 * MassO
 MassKAlSi3O8 = MassK + MassAl + 3 * MassSi + 8 * MassO
 MassTiO = MassTi + MassO

@@ -12,9 +12,27 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 np.seterr(divide="ignore", invalid="ignore")
 
 elements = ["C", "O", "Fe", "S", "Mg", "Si", "Na", "K", "N", "Al", "Ti", "V", "H", "He"]
-molecules = ["rest", "CO", "N2", "CH4", "CO2", "NH3", "H2S", "H2O", "Fe3O4", "C", "FeS", "NaAlSi3O8", "KAlSi3O8",
-             "Mg2SiO4",
-             "Fe2O3", "VO", "MgSiO3", "Al2O3", "TiO"]
+molecules = [
+    "rest",
+    "CO",
+    "N2",
+    "CH4",
+    "CO2",
+    "NH3",
+    "H2S",
+    "H2O",
+    "Fe3O4",
+    "C",
+    "FeS",
+    "NaAlSi3O8",
+    "KAlSi3O8",
+    "Mg2SiO4",
+    "Fe2O3",
+    "VO",
+    "MgSiO3",
+    "Al2O3",
+    "TiO",
+]
 
 FeH_dict = {
     "FeH": [-0.4, -0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4],
@@ -54,8 +72,22 @@ MassN = 14
 MassC = 12.0
 MassV = 50.9415
 
-el_masses = {"C": MassC, "O": MassO, "H": MassH, "Fe": MassFe, "Mg": MassMg, "Si": MassSi, "N": MassN, "S": MassS,
-             "He": MassHe, "Al": MassAl, "Ti": MassTi, "K": MassK, "Na": MassNa, "V": MassV}
+el_masses = {
+    "C": MassC,
+    "O": MassO,
+    "H": MassH,
+    "Fe": MassFe,
+    "Mg": MassMg,
+    "Si": MassSi,
+    "N": MassN,
+    "S": MassS,
+    "He": MassHe,
+    "Al": MassAl,
+    "Ti": MassTi,
+    "K": MassK,
+    "Na": MassNa,
+    "V": MassV,
+}
 
 DOT_SPACE = 1e5 * u.yr  # time in years between dots
 DOT_SPACE_LARGE = 5e5 * u.yr  # time in years between dots
@@ -75,31 +107,63 @@ linestyle_tuple = [
     ("densely dashdotdotted", (0, (3, 1, 1, 1, 1, 1))),
 ]
 
-dict_of_planet_read_names = {"t": r"t", "M": r"M", "M_a": r"M_a",
-                             "M_c": r"M_c", "a_p": r"a_p", "r_p": r"R_p", "tau_m": r"\tau_m", "T": "T",
-                             "comp_a": "Atmospheric Content", "comp_c": "Core Content", "sigma_g": r"\Sigma_g",
-                             "gamma_tot": r"\Gamma", "gamma_norm": r"\Gamma / \Gamma_0", "fSigma": "fSigma"}
-dict_of_acc_names_template = {r"m_dot": r"\dot M_{\mathrm{", r"m_dot_a": r"$\dot M_{\mathrm{atm,",
-                              r"m_dot_c": r"\dot M_{\mathrm{core,",
-                              r"m_dot_a_chem": r"\dot M_{\mathrm{atm,", r"m_dot_c_chem": r"\dot M_{\mathrm{core,",
-                              r"M_z": r"M_{Z,\mathrm{", r"regime":"regime_"}
-dict_of_acc_names = {f"{k}_{acc}": r"{}{}".format(v, acc) + r"}}" for k, v in dict_of_acc_names_template.items() for
-                     acc in ["peb", "gas"]}
+dict_of_planet_read_names = {
+    "t": r"t",
+    "M": r"M",
+    "M_a": r"M_a",
+    "M_c": r"M_c",
+    "a_p": r"a_p",
+    "r_p": r"R_p",
+    "tau_m": r"\tau_m",
+    "T": "T",
+    "comp_a": "Atmospheric Content",
+    "comp_c": "Core Content",
+    "sigma_g": r"\Sigma_g",
+    "gamma_tot": r"\Gamma",
+    "gamma_norm": r"\Gamma / \Gamma_0",
+    "fSigma": "fSigma",
+}
+dict_of_acc_names_template = {
+    r"m_dot": r"\dot M_{\mathrm{",
+    r"m_dot_a": r"$\dot M_{\mathrm{atm,",
+    r"m_dot_c": r"\dot M_{\mathrm{core,",
+    r"m_dot_a_chem": r"\dot M_{\mathrm{atm,",
+    r"m_dot_c_chem": r"\dot M_{\mathrm{core,",
+    r"M_z": r"M_{Z,\mathrm{",
+    r"regime": "regime_",
+}
+dict_of_acc_names = {
+    f"{k}_{acc}": r"{}{}".format(v, acc) + r"}}"
+    for k, v in dict_of_acc_names_template.items()
+    for acc in ["peb", "gas"]
+}
 
-dict_of_extra_names = {"Z_vs_M": r"\frac{M_{Z}}{M}}",
-                       "Z_vs_M_a": r"\frac{M_{a, Z}}{M_a}}", "Z_vs_M_c": r"\frac{M_{c, Z}}{M_c}}"}
+dict_of_extra_names = {
+    "Z_vs_M": r"\frac{M_{Z}}{M}}",
+    "Z_vs_M_a": r"\frac{M_{a, Z}}{M_a}}",
+    "Z_vs_M_c": r"\frac{M_{c, Z}}{M_c}}",
+}
 NAME = {**dict_of_planet_read_names, **dict_of_acc_names, **dict_of_extra_names}
 
 
 class GrowthPlot:
-    def __init__(self, files, out, plotlabels=None, FeH=0, close_plots=False, quantities=None, dry_run=False):
+    def __init__(
+        self,
+        files,
+        out,
+        plotlabels=None,
+        FeH=0,
+        close_plots=False,
+        quantities=None,
+        dry_run=False,
+    ):
         self.files = files
         self.out = out
         self._dry_run = dry_run
 
         if quantities is not None:
             self._used_quantities = set(quantities)
-            self._used_quantities.update(["M","t"])
+            self._used_quantities.update(["M", "t"])
         else:
             self._used_quantities = quantities
         self.import_data(files)
@@ -130,15 +194,27 @@ class GrowthPlot:
             NaHabu = 1 * NaHabu0
             VHabu = 1 * VHabu0
 
-            return {"O": OHabu * MassO, "Si": SiHabu * MassSi, "C": CHabu * MassC, "S": SHabu * MassS,
-                    "Fe": FeHabu * MassFe, "Mg": MgHabu * MassMg, "H": 1, "He": 0.085 * MassHe, "Na": NaHabu * MassNa,
-                    "N": NHabu * MassN, "Al": AlHabu * MassAl, "Ti": TiHabu * MassTi, "K": KHabu * MassK,
-                    "V": MassV * VHabu}
+            return {
+                "O": OHabu * MassO,
+                "Si": SiHabu * MassSi,
+                "C": CHabu * MassC,
+                "S": SHabu * MassS,
+                "Fe": FeHabu * MassFe,
+                "Mg": MgHabu * MassMg,
+                "H": 1,
+                "He": 0.085 * MassHe,
+                "Na": NaHabu * MassNa,
+                "N": NHabu * MassN,
+                "Al": AlHabu * MassAl,
+                "Ti": TiHabu * MassTi,
+                "K": KHabu * MassK,
+                "V": MassV * VHabu,
+            }
 
         self.FeH = {}
         for o in self.out:
             if type(FeH) == dict:
-                """ dict needs to have out as keys """
+                """dict needs to have out as keys"""
                 self.data[o]["solar"] = solar_from_FeH(FeH[o])
                 self.FeH[o] = FeH[o]
             else:
@@ -154,8 +230,11 @@ class GrowthPlot:
                 with h5py.File(files[i], "r") as f:
                     units = dict(f["/planet/units"].attrs)
                     keys = list(f["/planet"].keys())
-                    keys = [k for k in keys if
-                            k in self._used_quantities] if self._used_quantities is not None else keys
+                    keys = (
+                        [k for k in keys if k in self._used_quantities]
+                        if self._used_quantities is not None
+                        else keys
+                    )
                     if "units" in keys:
                         keys.remove("units")
                 break
@@ -175,18 +254,25 @@ class GrowthPlot:
                                 data[k] = u.Quantity(d, units.get(k))
                             else:
                                 data[k] = d
-                        data = {q: data[q][np.where(~np.isnan(data["M"]))] for q in data.keys()}
+                        data = {
+                            q: data[q][np.where(~np.isnan(data["M"]))]
+                            for q in data.keys()
+                        }
                         self.data[self.out[i]] = data
                 except OSError:
                     self.faulty_list.append(i)
 
             if len(self.faulty_list) > 0:
-                print(f"WARNING: There are in total {len(self.faulty_list)} corrupt files!")
+                print(
+                    f"WARNING: There are in total {len(self.faulty_list)} corrupt files!"
+                )
         else:
             with h5py.File(files[0], "r") as f:
                 fill_data = {}
                 for k in keys:
-                    fill_data[k] = np.squeeze(u.Quantity(np.array(f["/planet"][k]), units.get(k)))
+                    fill_data[k] = np.squeeze(
+                        u.Quantity(np.array(f["/planet"][k]), units.get(k))
+                    )
 
             for i in range(len(self.out)):
                 data = {}
@@ -195,8 +281,10 @@ class GrowthPlot:
                 data = {q: data[q] for q in data.keys()}
                 self.data[self.out[i]] = data
 
-        self.out = [self.out[i] for i in range(len(self.out)) if i not in self.faulty_list]
-        self.dt = (self.data[self.out[0]]["t"][-1] - self.data[self.out[0]]["t"][-2])
+        self.out = [
+            self.out[i] for i in range(len(self.out)) if i not in self.faulty_list
+        ]
+        self.dt = self.data[self.out[0]]["t"][-1] - self.data[self.out[0]]["t"][-2]
 
     def composite_data(self):
         def add_to_data(fct, quantity, comp_NAME, **kwargs):
@@ -206,23 +294,44 @@ class GrowthPlot:
                     NAME[quantity] = comp_NAME
 
         def M_Z_vs_M_a(o):
-            return np.sum(self.data[o]["comp_a"][:, 0, :-7], axis=1) / self.data[o]["M_a"] * u.dimensionless_unscaled
+            return (
+                np.sum(self.data[o]["comp_a"][:, 0, :-7], axis=1)
+                / self.data[o]["M_a"]
+                * u.dimensionless_unscaled
+            )
 
         def M_Z_vs_M(o):
-            return np.sum(self.data[o]["comp_a"][:, 0, :-7] + self.data[o]["comp_c"][:, 0, :-7], axis=1) / self.data[o][
-                "M"] * u.dimensionless_unscaled
+            return (
+                np.sum(
+                    self.data[o]["comp_a"][:, 0, :-7]
+                    + self.data[o]["comp_c"][:, 0, :-7],
+                    axis=1,
+                )
+                / self.data[o]["M"]
+                * u.dimensionless_unscaled
+            )
 
         def M_Z(o):
-            return np.sum(self.data[o]["comp_a"][:, 0, :-7] + self.data[o]["comp_c"][:, 0, :-7], axis=1)
+            return np.sum(
+                self.data[o]["comp_a"][:, 0, :-7] + self.data[o]["comp_c"][:, 0, :-7],
+                axis=1,
+            )
 
         def M_Z_vs_M_c(o):
-            return np.sum(self.data[o]["comp_c"][:, 0, :-7], axis=1) / self.data[o]["M_c"] * u.dimensionless_unscaled
+            return (
+                np.sum(self.data[o]["comp_c"][:, 0, :-7], axis=1)
+                / self.data[o]["M_c"]
+                * u.dimensionless_unscaled
+            )
 
         def elem_a(o):
             return dict(
                 zip(
                     elements,
-                    (self.data[o]["comp_a"][:, 0, :] / self.data[o]["M_a"][:, np.newaxis]).T
+                    (
+                        self.data[o]["comp_a"][:, 0, :]
+                        / self.data[o]["M_a"][:, np.newaxis]
+                    ).T,
                 )
             )
 
@@ -230,7 +339,10 @@ class GrowthPlot:
             return dict(
                 zip(
                     elements,
-                    (self.data[o]["comp_c"][:, 0, :] / self.data[o]["M_c"][:, np.newaxis]).T
+                    (
+                        self.data[o]["comp_c"][:, 0, :]
+                        / self.data[o]["M_c"][:, np.newaxis]
+                    ).T,
                 )
             )
 
@@ -238,8 +350,13 @@ class GrowthPlot:
             return dict(
                 zip(
                     elements,
-                    ((self.data[o]["comp_c"][:, 0, :] + self.data[o]["comp_a"][:, 0, :]) / self.data[o]["M"][:,
-                                                                                           np.newaxis]).T
+                    (
+                        (
+                            self.data[o]["comp_c"][:, 0, :]
+                            + self.data[o]["comp_a"][:, 0, :]
+                        )
+                        / self.data[o]["M"][:, np.newaxis]
+                    ).T,
                 )
             )
 
@@ -247,7 +364,10 @@ class GrowthPlot:
             return dict(
                 zip(
                     molecules,
-                    (self.data[o]["comp_a"][:, 1, :] / self.data[o]["M_a"][:, np.newaxis]).T
+                    (
+                        self.data[o]["comp_a"][:, 1, :]
+                        / self.data[o]["M_a"][:, np.newaxis]
+                    ).T,
                 )
             )
 
@@ -255,7 +375,10 @@ class GrowthPlot:
             return dict(
                 zip(
                     molecules,
-                    (self.data[o]["comp_c"][:, 1, :] / self.data[o]["M_c"][:, np.newaxis]).T
+                    (
+                        self.data[o]["comp_c"][:, 1, :]
+                        / self.data[o]["M_c"][:, np.newaxis]
+                    ).T,
                 )
             )
 
@@ -263,28 +386,53 @@ class GrowthPlot:
             return dict(
                 zip(
                     molecules,
-                    ((self.data[o]["comp_c"][:, 1, :] + self.data[o]["comp_a"][:, 1, :]) / self.data[o]["M"][:,
-                                                                                           np.newaxis]).T
+                    (
+                        (
+                            self.data[o]["comp_c"][:, 1, :]
+                            + self.data[o]["comp_a"][:, 1, :]
+                        )
+                        / self.data[o]["M"][:, np.newaxis]
+                    ).T,
                 )
             )
 
         def XH(o, X, orig):
-            return self.data[o][f"elem_{orig}"][X] / self.data[o][f"elem_{orig}"]["H"] / self.data[o]["solar"][X]
+            return (
+                self.data[o][f"elem_{orig}"][X]
+                / self.data[o][f"elem_{orig}"]["H"]
+                / self.data[o]["solar"][X]
+            )
 
         def XY(o, X, Y, orig):
-            return self.data[o][f"elem_{orig}"][X] / self.data[o][f"elem_{orig}"][Y] / self.data[o]["solar"][X] * \
-                   self.data[o]["solar"][Y]
+            return (
+                self.data[o][f"elem_{orig}"][X]
+                / self.data[o][f"elem_{orig}"][Y]
+                / self.data[o]["solar"][X]
+                * self.data[o]["solar"][Y]
+            )
 
         def XH_not_normed(o, X, orig):
-            return self.data[o][f"elem_{orig}"][X] / self.data[o][f"elem_{orig}"]["H"] / el_masses[X]
+            return (
+                self.data[o][f"elem_{orig}"][X]
+                / self.data[o][f"elem_{orig}"]["H"]
+                / el_masses[X]
+            )
 
         def XY_not_normed(o, X, Y, orig):
-            return self.data[o][f"elem_{orig}"][X] / self.data[o][f"elem_{orig}"][Y] * el_masses[Y] / el_masses[X]
+            return (
+                self.data[o][f"elem_{orig}"][X]
+                / self.data[o][f"elem_{orig}"][Y]
+                * el_masses[Y]
+                / el_masses[X]
+            )
 
         def pebiso(o):
-            iso = np.where(self.data[o]["m_dot_gas"].value > 0, np.ones_like(self.data[o]["t"].value),
-                            np.zeros_like(self.data[o]["t"].value))
-            iso[np.argmax(iso>0):] = 1
+            iso = np.where(
+                self.data[o]["m_dot_gas"].value > 0,
+                np.ones_like(self.data[o]["t"].value),
+                np.zeros_like(self.data[o]["t"].value),
+            )
+            iso[np.argmax(iso > 0) :] = 1
             iso = iso * u.dimensionless_unscaled
             return iso
 
@@ -341,8 +489,10 @@ class GrowthPlot:
     def get_label(self, n, quantity):
         if hasattr(quantity, "unit") and quantity.unit != u.dimensionless_unscaled:
             x = r"${}$ / {:latex}".format(n, quantity.unit)
-        elif hasattr(self.data[self.out[0]].get(n, None), "unit") and self.data[self.out[0]][
-            n].unit != u.dimensionless_unscaled:
+        elif (
+            hasattr(self.data[self.out[0]].get(n, None), "unit")
+            and self.data[self.out[0]][n].unit != u.dimensionless_unscaled
+        ):
             quantity = self.data[self.out[0]][n]
             x = r"${}$ / {:latex}".format(n, quantity.unit)
         elif n == "a_p":
@@ -360,20 +510,20 @@ class GrowthPlot:
         return x
 
     def plot_data(
-            self,
-            quantities,
-            out=None,
-            sub_quant=None,
-            t_dot=None,
-            label=None,
-            ulabel=True,
-            fig=None,
-            units=None,
-            ax=None,
-            plt=None,
-            color_dict=None,
-            use_ls=True,
-            **kwargs
+        self,
+        quantities,
+        out=None,
+        sub_quant=None,
+        t_dot=None,
+        label=None,
+        ulabel=True,
+        fig=None,
+        units=None,
+        ax=None,
+        plt=None,
+        color_dict=None,
+        use_ls=True,
+        **kwargs,
     ):
         snapshot = kwargs.get("snapshot", None)
         out = self.out if out is None else out
@@ -395,17 +545,25 @@ class GrowthPlot:
             use_t_dot = False
 
         if snapshot is None:
+
             def get_dots(x_data, y_data, t):
-                t_at_dot = np.arange(dotspace.cgs.value, np.max(t[:-1]).cgs.value, dotspace.cgs.value)
+                t_at_dot = np.arange(
+                    dotspace.cgs.value, np.max(t[:-1]).cgs.value, dotspace.cgs.value
+                )
                 x = np.interp(t_at_dot, t.cgs.value, x_data)
                 y = np.interp(t_at_dot, t.cgs.value, y_data)
 
-                t_at_dot = np.arange(dotspace_large.cgs.value, np.max(t[:-1]).cgs.value, dotspace_large.cgs.value)
+                t_at_dot = np.arange(
+                    dotspace_large.cgs.value,
+                    np.max(t[:-1]).cgs.value,
+                    dotspace_large.cgs.value,
+                )
                 x_large = np.interp(t_at_dot, t.cgs.value, x_data)
                 y_large = np.interp(t_at_dot, t.cgs.value, y_data)
 
-                x, y = u.Quantity([xi for xi in x if xi not in x_large], x.unit), u.Quantity(
-                    [yi for yi in y if yi not in y_large], y.unit)
+                x, y = u.Quantity(
+                    [xi for xi in x if xi not in x_large], x.unit
+                ), u.Quantity([yi for yi in y if yi not in y_large], y.unit)
                 return x, y, x_large, y_large
 
             if not hasattr(self, "_plot_x_data"):
@@ -434,63 +592,117 @@ class GrowthPlot:
                     legend = label
 
                 if units is not None:
-                    self._plot_x_data[ax][o], self._plot_y_data[ax][o] = planet[quantities[0]].to(units[0]), planet[
-                        quantities[1]].to(units[1])
+                    self._plot_x_data[ax][o], self._plot_y_data[ax][o] = planet[
+                        quantities[0]
+                    ].to(units[0]), planet[quantities[1]].to(units[1])
                 else:
-                    self._plot_x_data[ax][o], self._plot_y_data[ax][o] = planet[quantities[0]], planet[quantities[1]]
+                    self._plot_x_data[ax][o], self._plot_y_data[ax][o] = (
+                        planet[quantities[0]],
+                        planet[quantities[1]],
+                    )
 
                 if ax is not None:
-
                     if use_ls:
-                        ls_mask = self.data[o]["pebiso"]==0
+                        ls_mask = self.data[o]["pebiso"] == 0
                         not_ls_mask = np.logical_not(ls_mask)
-                        not_ls_mask[np.argmin(ls_mask)-1] = True
-                        self._plot[ax][o], = ax.loglog(self._plot_x_data[ax][o][not_ls_mask],
-                                                       self._plot_y_data[ax][o][not_ls_mask], label=legend, ls=":",
-                                                       **kwargs)
+                        not_ls_mask[np.argmin(ls_mask) - 1] = True
+                        (self._plot[ax][o],) = ax.loglog(
+                            self._plot_x_data[ax][o][not_ls_mask],
+                            self._plot_y_data[ax][o][not_ls_mask],
+                            label=legend,
+                            ls=":",
+                            **kwargs,
+                        )
                     else:
                         ls_mask = np.arange(len(self._plot_x_data[ax][o]))
 
-                    self._plot[ax][o], = ax.loglog(self._plot_x_data[ax][o][ls_mask], self._plot_y_data[ax][o][ls_mask], label=legend,
-                                                       **kwargs)
+                    (self._plot[ax][o],) = ax.loglog(
+                        self._plot_x_data[ax][o][ls_mask],
+                        self._plot_y_data[ax][o][ls_mask],
+                        label=legend,
+                        **kwargs,
+                    )
 
-
-
-                    ax.set_xlabel(self.get_label(NAME.get(quantities[0], quantities[0]), self._plot_x_data[ax][o]))
-                    ax.set_ylabel(self.get_label(NAME.get(quantities[1], quantities[1]), self._plot_y_data[ax][o]))
+                    ax.set_xlabel(
+                        self.get_label(
+                            NAME.get(quantities[0], quantities[0]),
+                            self._plot_x_data[ax][o],
+                        )
+                    )
+                    ax.set_ylabel(
+                        self.get_label(
+                            NAME.get(quantities[1], quantities[1]),
+                            self._plot_y_data[ax][o],
+                        )
+                    )
 
                     if use_t_dot:
                         x, y, x_large, y_large = get_dots(
                             planet[quantities[0]], planet[quantities[1]], planet["t"]
                         )
                         if len(x) > 0:
-                            ax.scatter(x, y, marker="o", s=10, color=color_t_dot_small[:len(x)], alpha=1)
+                            ax.scatter(
+                                x,
+                                y,
+                                marker="o",
+                                s=10,
+                                color=color_t_dot_small[: len(x)],
+                                alpha=1,
+                            )
                         if len(x_large) > 0:
-                            ax.scatter(x_large, y_large, s=25, marker="o", color=color_t_dot[:len(x_large)], alpha=1)
+                            ax.scatter(
+                                x_large,
+                                y_large,
+                                s=25,
+                                marker="o",
+                                color=color_t_dot[: len(x_large)],
+                                alpha=1,
+                            )
 
                 elif plt is not None:
-
-                    self._plot[o], = plt.loglog(
-                        self._plot_x_data[ax][o], self._plot_y_data[ax][o], label=legend, **kwargs
+                    (self._plot[o],) = plt.loglog(
+                        self._plot_x_data[ax][o],
+                        self._plot_y_data[ax][o],
+                        label=legend,
+                        **kwargs,
                     )
 
-                    plt.xlabel(self.get_label(NAME.get(quantities[0], quantities[0]), self._plot_x_data[ax][o]))
-                    plt.ylabel(self.get_label(NAME.get(quantities[1], quantities[1]), self._plot_y_data[ax][o]))
+                    plt.xlabel(
+                        self.get_label(
+                            NAME.get(quantities[0], quantities[0]),
+                            self._plot_x_data[ax][o],
+                        )
+                    )
+                    plt.ylabel(
+                        self.get_label(
+                            NAME.get(quantities[1], quantities[1]),
+                            self._plot_y_data[ax][o],
+                        )
+                    )
                     plt.title(
-                        self.get_label(NAME.get(quantities[1], quantities[1]), NAME.get(quantities[0], quantities[0])))
+                        self.get_label(
+                            NAME.get(quantities[1], quantities[1]),
+                            NAME.get(quantities[0], quantities[0]),
+                        )
+                    )
 
                     if use_t_dot:
                         x, y, x_large, y_large = get_dots(
                             planet[quantities[0]], planet[quantities[1]], planet["t"]
                         )
                         plt.plot(x, y, "ko", markersize=4, color="gray", alpha=1)
-                        plt.plot(x_large, y_large, "ko", markersize=8, color="gray", alpha=1)
+                        plt.plot(
+                            x_large, y_large, "ko", markersize=8, color="gray", alpha=1
+                        )
 
         else:
             for o in out:
                 if o in self.out:
                     snapshot = np.minimum(snapshot, len(self._plot_x_data[ax][o]))
-                    self._plot[ax][o].set_data(self._plot_x_data[ax][o][:snapshot], self._plot_y_data[ax][o][:snapshot])
+                    self._plot[ax][o].set_data(
+                        self._plot_x_data[ax][o][:snapshot],
+                        self._plot_y_data[ax][o][:snapshot],
+                    )
 
         return self._plot[ax]
 
@@ -515,24 +727,70 @@ class GrowthPlot:
         self.out = mask
         self.plotlabels = {k: v for (k, v) in self.plotlabels.items() if k in mask}
 
-    def pqplot_video(self, plt, quantity, frames, lines=[], sub_qaunt=None, log_data=False, units=None, **kwargs):
-        """ not working anymore, needs some more fixes"""
+    def pqplot_video(
+        self,
+        plt,
+        quantity,
+        frames,
+        lines=[],
+        sub_qaunt=None,
+        log_data=False,
+        units=None,
+        **kwargs,
+    ):
+        """not working anymore, needs some more fixes"""
         fig, ax = plt.subplots(sharex=True, sharey=True)
         div = make_axes_locatable(ax)
-        cax = div.append_axes('right', '5%', '5%')
+        cax = div.append_axes("right", "5%", "5%")
 
         def animate(i):
             [ax.clear() for ax in fig.axes]
-            self.pqplot(plt=plt, snapshot=i, fig=fig, quantity=quantity, lines=lines, sub_qaunt=sub_qaunt,
-                        log_data=log_data, cax=cax, units=units, **kwargs)
+            self.pqplot(
+                plt=plt,
+                snapshot=i,
+                fig=fig,
+                quantity=quantity,
+                lines=lines,
+                sub_qaunt=sub_qaunt,
+                log_data=log_data,
+                cax=cax,
+                units=units,
+                **kwargs,
+            )
 
         return animation.FuncAnimation(fig, animate, frames=frames)
 
-    def pqplot(self, fig, quantity, lines=[], cax=None, sub_quant=None, log_data=False, symlog_data=False, snapshot=-1,
-               units=None, icelines=None, ax=None, shape=None, cbar_location=None,
-               **kwargs):
-        data_all, extend_r, p_data, p_name, q_data, q_name, r_list, r_name, x_data_all, y_data_all, z_data, z_data_all = self.extract_r0t0_data(
-            quantity, snapshot, sub_quant, units)
+    def pqplot(
+        self,
+        fig,
+        quantity,
+        lines=[],
+        cax=None,
+        sub_quant=None,
+        log_data=False,
+        symlog_data=False,
+        snapshot=-1,
+        units=None,
+        icelines=None,
+        ax=None,
+        shape=None,
+        cbar_location=None,
+        **kwargs,
+    ):
+        (
+            data_all,
+            extend_r,
+            p_data,
+            p_name,
+            q_data,
+            q_name,
+            r_list,
+            r_name,
+            x_data_all,
+            y_data_all,
+            z_data,
+            z_data_all,
+        ) = self.extract_r0t0_data(quantity, snapshot, sub_quant, units)
 
         if shape is None:
             if len(extend_r) > 2:
@@ -569,20 +827,32 @@ class GrowthPlot:
             for l in lines:
                 if isinstance(l[0], str):
                     Z = np.array(
-                        [d[l[0]].value[snapshot if snapshot < len(d["t"]) else -1] for d in data_all[i].values()])
+                        [
+                            d[l[0]].value[snapshot if snapshot < len(d["t"]) else -1]
+                            for d in data_all[i].values()
+                        ]
+                    )
                 else:
                     Z = l[0]
 
-                zi, yi, xi = np.histogram2d(p_data, q_data, bins=(len(np.unique(p_data)), len(np.unique(q_data))),
-                                            weights=Z,
-                                            normed=False)
+                zi, yi, xi = np.histogram2d(
+                    p_data,
+                    q_data,
+                    bins=(len(np.unique(p_data)), len(np.unique(q_data))),
+                    weights=Z,
+                    normed=False,
+                )
                 # zi = gaussian_filter(zi.T, 0.15)
                 x_step = l[1].pop("x_step", 1)
                 y_step = l[1].pop("y_step", 1)
                 zi = zi.T
                 zi = np.ma.masked_equal(zi, np.inf)
-                CS = ax_temp.contour(x_data_all[i][::x_step, ::y_step], y_data_all[i][::x_step, ::y_step],
-                                     zi[::x_step, ::y_step], **l[1])
+                CS = ax_temp.contour(
+                    x_data_all[i][::x_step, ::y_step],
+                    y_data_all[i][::x_step, ::y_step],
+                    zi[::x_step, ::y_step],
+                    **l[1],
+                )
                 ax_temp.clabel(CS, l[2])
                 l[1]["x_step"] = x_step
                 l[1]["y_step"] = y_step
@@ -593,11 +863,9 @@ class GrowthPlot:
             time = 3 * u.Myr if snapshot == -1 else snapshot * self.dt
             if r_name is not None:
                 if r_name == "case":
-                    ax_temp.set_title(
-                        r"{}".format(r_list[i]))
+                    ax_temp.set_title(r"{}".format(r_list[i]))
                 else:
-                    ax_temp.set_title(
-                        r"{}={}".format(r_name, r_list[i]))
+                    ax_temp.set_title(r"{}={}".format(r_name, r_list[i]))
 
         shrink = 0.4 if cbar_location == "bottom" else 0.6
         aspect = 6 if cbar_location == "bottom" else 20
@@ -607,7 +875,9 @@ class GrowthPlot:
             cbar = fig.colorbar(im, ax=ax[:-1], cax=cax, shrink=shrink, aspect=aspect)
             ax.flat[-1].remove()
         else:
-            cbar = fig.colorbar(im, ax=ax, cax=cax, location=cbar_location, shrink=shrink, aspect=aspect)
+            cbar = fig.colorbar(
+                im, ax=ax, cax=cax, location=cbar_location, shrink=shrink, aspect=aspect
+            )
 
         try:
             for temp_ax in ax.flat:
@@ -615,15 +885,17 @@ class GrowthPlot:
         except Exception as e:
             print(f"no label outer possible {e}")
 
-
         cbar.ax.set_title(self.get_label(quantity, z_data), y=1.03)
 
         fig.suptitle(
-            r"${}$-${}$ Plot for {}, t = {}".format(p_name, q_name, quantity, time.to(u.Myr)))
+            r"${}$-${}$ Plot for {}, t = {}".format(
+                p_name, q_name, quantity, time.to(u.Myr)
+            )
+        )
         return im
 
     def extract_r0t0_data(self, quantity, snapshot, sub_quant, units):
-        """ data in pipline should look like: r0 = [20, 10, 5, 20, 10, 5]), t0 = [1e5, 1e5, 1e5, 1e6, 1e6, 1e6]) - in other words: flattened meshgrids"""
+        """data in pipline should look like: r0 = [20, 10, 5, 20, 10, 5]), t0 = [1e5, 1e5, 1e5, 1e6, 1e6, 1e6]) - in other words: flattened meshgrids"""
         format_string = "{}:{}, {}:{}"
         format_string_long = "{}:{}, {}:{}, {}:{}"
         if parse.parse(format_string_long, self.plotlabels[self.out[0]]) is not None:
@@ -637,7 +909,10 @@ class GrowthPlot:
             if np.all(unique == np.array(["evaporation", "plain"])):
                 unique = unique[::-1]
 
-            extend_r = [[self.out[i] for i in range(len(self.out)) if pa[i] == lsta] for lsta in unique]
+            extend_r = [
+                [self.out[i] for i in range(len(self.out)) if pa[i] == lsta]
+                for lsta in unique
+            ]
         elif parse.parse(format_string, self.plotlabels[self.out[0]]) is not None:
             # -> case of only par_1, par_2
             extend_r = [self.out]
@@ -650,9 +925,13 @@ class GrowthPlot:
             p_data, q_data = [], []
             for o in sub:
                 if len(extend_r) > 1:
-                    r_name, r, p_name, p, q_name, q = parse.parse(format_string_long, self.plotlabels[o])
+                    r_name, r, p_name, p, q_name, q = parse.parse(
+                        format_string_long, self.plotlabels[o]
+                    )
                 else:
-                    p_name, p, q_name, q = parse.parse(format_string, self.plotlabels[o])
+                    p_name, p, q_name, q = parse.parse(
+                        format_string, self.plotlabels[o]
+                    )
                     r_name = None
                     r = 0
                 p_data.append(float(p))
@@ -665,20 +944,35 @@ class GrowthPlot:
                 q_data = (q_data * units[1]).cgs.to(units[1])
 
             if sub_quant is not None:
-                z_data = np.array([data[quantity][sub_quant][snapshot if snapshot < len(data["t"]) else -1] for data in
-                                   data.values()])
+                z_data = np.array(
+                    [
+                        data[quantity][sub_quant][
+                            snapshot if snapshot < len(data["t"]) else -1
+                        ]
+                        for data in data.values()
+                    ]
+                )
 
             else:
                 z_data = np.array(
-                    [data[quantity].value[snapshot if snapshot < len(data["t"]) else -1] for data in
-                     data.values()])
+                    [
+                        data[quantity].value[
+                            snapshot if snapshot < len(data["t"]) else -1
+                        ]
+                        for data in data.values()
+                    ]
+                )
 
             if units is not None:
                 z_data = z_data.to(units[2])
 
-            zi, yi, xi = np.histogram2d(p_data, q_data, bins=(len(np.unique(p_data)), len(np.unique(q_data))),
-                                        weights=z_data,
-                                        normed=False)
+            zi, yi, xi = np.histogram2d(
+                p_data,
+                q_data,
+                bins=(len(np.unique(p_data)), len(np.unique(q_data))),
+                weights=z_data,
+                normed=False,
+            )
             zi = np.ma.masked_equal(zi, 0)
             zi = np.ma.masked_equal(zi, np.inf)
             X, Y = np.meshgrid(np.unique(p_data), np.unique(q_data))
@@ -689,35 +983,86 @@ class GrowthPlot:
             data_all.append(data)
         x_data_all = np.array(x_data_all)
         y_data_all = np.array(y_data_all)
-        return data_all, extend_r, p_data, p_name, q_data, q_name, r_list, r_name, x_data_all, y_data_all, z_data, z_data_all
+        return (
+            data_all,
+            extend_r,
+            p_data,
+            p_name,
+            q_data,
+            q_name,
+            r_list,
+            r_name,
+            x_data_all,
+            y_data_all,
+            z_data,
+            z_data_all,
+        )
 
     def get_iceline_background(self, file, ax):
         def get_data_iceline():
             data = {}
-            with tables.open_file(file, mode='r') as f:
+            with tables.open_file(file, mode="r") as f:
                 data["T"] = np.array(f.root.disk.T)
                 data["r"] = np.squeeze(np.array(f.root.disk.r) / const.au.cgs.value)
-                data["t"] = np.squeeze(np.array(f.root.disk.t)) / 1e6 / 365.25 / 24 / 3600
+                data["t"] = (
+                    np.squeeze(np.array(f.root.disk.t)) / 1e6 / 365.25 / 24 / 3600
+                )
 
-            data["icelines"] = np.array([20, 30, 70, 150, 371, 970, 1354, 1423, 1500, 1653, 2000])
+            data["icelines"] = np.array(
+                [20, 30, 70, 150, 371, 970, 1354, 1423, 1500, 1653, 2000]
+            )
             data["iceline_pos"] = np.array(
-                [np.searchsorted(-data["T"][i], -data["icelines"]) for i in range(len(data["T"]))])
-            data["iceline_r"] = np.array([data["r"][data["iceline_pos"][i]] for i in range(len(data["t"]))])
-            data["iceline_name"] = ["CO & N2", "CH4", "CO2", "H2O & H2S", "Fe3O4", "NaAlSi3O8 & KAlSi3O8",
-                                    "Mg2SiO4 & Fe2O3",
-                                    "VO", "MgSiO3", "Al2O3", "TiO"]
+                [
+                    np.searchsorted(-data["T"][i], -data["icelines"])
+                    for i in range(len(data["T"]))
+                ]
+            )
+            data["iceline_r"] = np.array(
+                [data["r"][data["iceline_pos"][i]] for i in range(len(data["t"]))]
+            )
+            data["iceline_name"] = [
+                "CO & N2",
+                "CH4",
+                "CO2",
+                "H2O & H2S",
+                "Fe3O4",
+                "NaAlSi3O8 & KAlSi3O8",
+                "Mg2SiO4 & Fe2O3",
+                "VO",
+                "MgSiO3",
+                "Al2O3",
+                "TiO",
+            ]
             return data
 
         data = get_data_iceline()
         xlim, ylim = ax.get_xlim(), ax.get_ylim()
         texts = []
         for i in range(len(data["icelines"])):
-            if np.any(np.logical_and(data["iceline_r"][:, i] > xlim[0], data["iceline_r"][:, i] < xlim[1])):
+            if np.any(
+                np.logical_and(
+                    data["iceline_r"][:, i] > xlim[0], data["iceline_r"][:, i] < xlim[1]
+                )
+            ):
                 ymask = np.logical_and(data["t"] > ylim[0], data["t"] < ylim[1])
-                ax.plot(data["iceline_r"][ymask, i], data["t"][ymask], ls="--", color="gray", alpha=0.8)
-                t = ax.text(np.mean(data["iceline_r"][ymask, i]), 0.5 * (np.mean(ax.get_ylim())),
-                            data["iceline_name"][i], fontsize=10,
-                            rotation=90, ha="center", va="center", color="white", backgroundcolor="gray")
+                ax.plot(
+                    data["iceline_r"][ymask, i],
+                    data["t"][ymask],
+                    ls="--",
+                    color="gray",
+                    alpha=0.8,
+                )
+                t = ax.text(
+                    np.mean(data["iceline_r"][ymask, i]),
+                    0.5 * (np.mean(ax.get_ylim())),
+                    data["iceline_name"][i],
+                    fontsize=10,
+                    rotation=90,
+                    ha="center",
+                    va="center",
+                    color="white",
+                    backgroundcolor="gray",
+                )
 
                 t.set_bbox(dict(alpha=0.0))
                 texts.append(t)

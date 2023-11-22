@@ -4,6 +4,7 @@ from datetime import datetime
 
 import numpy as np
 from slugify import slugify
+
 try:
     from yaml import CLoader as Loader, CDumper as Dumper
 except ImportError:
@@ -39,7 +40,7 @@ def file_checks_out(config_file, continue_job):
     if not continue_job:
         return True
 
-    output = import_config(config_file).get("output",{})
+    output = import_config(config_file).get("output", {})
     name = output.get("name", "planet")
     filename = output.get("directory", os.path.join(OUTPUT_PATH, "{}.h5".format(name)))
 
@@ -94,11 +95,23 @@ def create_pipeline(job, config):
     values = np.array([mesh.flatten() for mesh in parameter_mesh])
 
     if double_disks:
-        files, names = double_disks_wrapper(template, values, parameter_info, name=name,
-                                            save_disk=save_disk, save_interval=save_interval)
+        files, names = double_disks_wrapper(
+            template,
+            values,
+            parameter_info,
+            name=name,
+            save_disk=save_disk,
+            save_interval=save_interval,
+        )
     else:
-        files = create_yaml_test_range(template, values, parameter_info, name=name, save_disk=save_disk,
-                                       save_interval=save_interval)
+        files = create_yaml_test_range(
+            template,
+            values,
+            parameter_info,
+            name=name,
+            save_disk=save_disk,
+            save_interval=save_interval,
+        )
         names = [name]
 
     return files, names
@@ -107,7 +120,7 @@ def create_pipeline(job, config):
 def run_setup(config_file):
     """load config and start modelling"""
     if not os.path.isdir(OUTPUT_PATH):
-        print(f'creating Folder {OUTPUT_PATH}')
+        print(f"creating Folder {OUTPUT_PATH}")
         os.mkdir(OUTPUT_PATH)
 
     # Load config
@@ -131,7 +144,9 @@ def run_setup(config_file):
         planet_model = "BertPlanet"
         print("No planetmodel specified, using BertPlanet")
 
-    disk = getattr(chemcomp.disks, disk_model)(defaults, chemistry=chemistry, **config_disk)
+    disk = getattr(chemcomp.disks, disk_model)(
+        defaults, chemistry=chemistry, **config_disk
+    )
 
     accretion_models = get_acc_models(
         config_pebble_accretion,
@@ -152,12 +167,16 @@ def run_setup(config_file):
 
 def zip_all(names=[], delete=False):
     if not os.path.isdir(ZIP_OUTPUT_PATH):
-        print(f'creating Folder {ZIP_OUTPUT_PATH}')
+        print(f"creating Folder {ZIP_OUTPUT_PATH}")
         os.mkdir(ZIP_OUTPUT_PATH)
 
     zipf = zipfile.ZipFile(
-        os.path.join(ZIP_OUTPUT_PATH,
-                     "{}_{}.zip".format(os.path.commonprefix(names), datetime.now().strftime("%Y%m%d-%H%M%S"))),
+        os.path.join(
+            ZIP_OUTPUT_PATH,
+            "{}_{}.zip".format(
+                os.path.commonprefix(names), datetime.now().strftime("%Y%m%d-%H%M%S")
+            ),
+        ),
         "w",
         zipfile.ZIP_DEFLATED,
     )
@@ -198,7 +217,15 @@ def get_acc_models(conf_pebble, conf_gas):
     ]
 
 
-def write_yaml(template, parameter_info, values, template_name, name="", save_disk=False, save_interval=None):
+def write_yaml(
+    template,
+    parameter_info,
+    values,
+    template_name,
+    name="",
+    save_disk=False,
+    save_interval=None,
+):
     if isinstance(template, str):
         with open(os.path.join(CONFIG_PATH, "{}.yaml".format(template))) as f:
             config_template = load(f, Loader=Loader)
@@ -235,7 +262,9 @@ def write_yaml(template, parameter_info, values, template_name, name="", save_di
     return new_file_name, slug, plot_name
 
 
-def create_yaml_test_range(template, values, parameter_info, name="", save_disk=False, save_interval=None):
+def create_yaml_test_range(
+    template, values, parameter_info, name="", save_disk=False, save_interval=None
+):
     files, slugs, plot_names = [], [], []
 
     if not isinstance(template, str):
@@ -244,7 +273,7 @@ def create_yaml_test_range(template, values, parameter_info, name="", save_disk=
         template_name = template
 
     if not os.path.isdir(CONFIG_PATH):
-        print(f'creating Folder {CONFIG_PATH}')
+        print(f"creating Folder {CONFIG_PATH}")
         os.mkdir(CONFIG_PATH)
 
     path = os.path.join(CONFIG_PATH, "p_{}".format(name))
@@ -255,9 +284,15 @@ def create_yaml_test_range(template, values, parameter_info, name="", save_disk=
         os.mkdir(path)
 
     for i in range(len(values.T)):
-        file, slug, plot_name = write_yaml(template, parameter_info, values.T[i],
-                                           template_name=template_name, name=name,
-                                           save_disk=save_disk, save_interval=save_interval)
+        file, slug, plot_name = write_yaml(
+            template,
+            parameter_info,
+            values.T[i],
+            template_name=template_name,
+            name=name,
+            save_disk=save_disk,
+            save_interval=save_interval,
+        )
         files.append(file)
         slugs.append(slug)
         plot_names.append(plot_name)
@@ -266,14 +301,16 @@ def create_yaml_test_range(template, values, parameter_info, name="", save_disk=
         slugfile.write("\n".join(slugs))
 
     with open(
-            os.path.join(OUTPUT_PATH, "plot_names_{}.dat".format(name)), "w"
+        os.path.join(OUTPUT_PATH, "plot_names_{}.dat".format(name)), "w"
     ) as plot_name_file:
         plot_name_file.write("\n".join(plot_names))
 
     return files
 
 
-def double_disks_wrapper(template, values, parameter_info, name, save_disk, save_interval):
+def double_disks_wrapper(
+    template, values, parameter_info, name, save_disk, save_interval
+):
     """
     change template and create four different disks: With Pla, With evap, With Pla+evap, plain
     Note: currently only two disks. Thank you referee!
@@ -288,14 +325,22 @@ def double_disks_wrapper(template, values, parameter_info, name, save_disk, save
     template_None = config_template.copy()
     template_None["config_disk"]["DTG_pla"] = 0.0
     template_None["config_disk"]["evaporation"] = False
-    files.append(create_yaml_test_range(template_None, values, parameter_info, name, save_disk, save_interval))
+    files.append(
+        create_yaml_test_range(
+            template_None, values, parameter_info, name, save_disk, save_interval
+        )
+    )
 
     # evap:
     template_evap = config_template.copy()
     template_evap["config_disk"]["DTG_pla"] = 0.0
     template_evap["config_disk"]["evaporation"] = True
     name_evap = f"{name}_evap"
-    files.append(create_yaml_test_range(template_evap, values, parameter_info, name_evap, save_disk, save_interval))
+    files.append(
+        create_yaml_test_range(
+            template_evap, values, parameter_info, name_evap, save_disk, save_interval
+        )
+    )
 
     return [item for sublist in files for item in sublist], [name_evap, name]
 

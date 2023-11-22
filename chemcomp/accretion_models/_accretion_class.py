@@ -13,11 +13,11 @@ class Accretion(object):
         self.regime = ""
 
     def calc_m_dot(self):
-        """ function that calculates and updates the accretion model """
+        """function that calculates and updates the accretion model"""
         pass
 
     def accretion_domain(self):
-        """ function that calculates the regimes of the accretion model """
+        """function that calculates the regimes of the accretion model"""
         pass
 
     def init_accretion(self, planet):
@@ -32,11 +32,11 @@ class Accretion(object):
         self._init_params()
 
     def _init_params(self):
-        """ function that inits parameters needed """
+        """function that inits parameters needed"""
         pass
 
     def update_z(self):
-        """update the total mass of heavy elements that have been accreted. """
+        """update the total mass of heavy elements that have been accreted."""
         self.M_z[0] += np.sum(self.m_dot_c_chem[0, :-7] * self.planet.h)
         self.M_z[1] += np.sum(self.m_dot_a_chem[0, :-7] * self.planet.h)
 

@@ -2,10 +2,15 @@ import os
 
 from chemcomp.helpers.units.berts_units import *
 
-opacity_array = np.genfromtxt(os.path.join(os.path.dirname(os.path.realpath(__file__)), "meanopac5.dat"),
-                              usecols=(0, 1), skip_header=1).T
+opacity_array = np.genfromtxt(
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "meanopac5.dat"),
+    usecols=(0, 1),
+    skip_header=1,
+).T
 opacity_array_derivative = np.gradient(opacity_array[1], opacity_array[0])
-opacity_array_derivative_derivative = np.gradient(opacity_array_derivative, opacity_array[0])
+opacity_array_derivative_derivative = np.gradient(
+    opacity_array_derivative, opacity_array[0]
+)
 
 
 def belllin(rho, temp, Z=0.01, onlygas=False):
@@ -19,26 +24,30 @@ def belllin(rho, temp, Z=0.01, onlygas=False):
      onlygas       If set, then do not include the dust part of the _0pacity
     """
     if onlygas:
-        ki  = np.array([1e-8,1e-36,1.5e20,0.348])
-        a   = np.array([0.6667,0.3333,1.,0.])
-        b   = np.array([3.,10.,-2.5,0.])
+        ki = np.array([1e-8, 1e-36, 1.5e20, 0.348])
+        a = np.array([0.6667, 0.3333, 1.0, 0.0])
+        b = np.array([3.0, 10.0, -2.5, 0.0])
     else:
-        ki  = np.array([2e-4,2e16,0.1,2e81,1e-8,1e-36,1.5e20,0.348])
-        a   = np.array([0.,0.,0.,1.,0.6667,0.3333,1.,0.])
-        b   = np.array([2.,-7.,0.5,-24.,3.,10.,-2.5,0.])
-    nn  = len(ki)
+        ki = np.array([2e-4, 2e16, 0.1, 2e81, 1e-8, 1e-36, 1.5e20, 0.348])
+        a = np.array([0.0, 0.0, 0.0, 1.0, 0.6667, 0.3333, 1.0, 0.0])
+        b = np.array([2.0, -7.0, 0.5, -24.0, 3.0, 10.0, -2.5, 0.0])
+    nn = len(ki)
 
-    n   = len(rho)
-    dm  = np.zeros((nn,n))
+    n = len(rho)
+    dm = np.zeros((nn, n))
     for ii in range(nn):
-        dm[ii,:] = ki[ii]*rho[:]**a[ii]
-    tc  = np.zeros((nn+1,n))
-    for ii in range(nn-1):
-        tc[ii+1,:] = (dm[ii,:]/dm[ii+1,:])**(1./(b[ii+1]-b[ii]))
-    tc[nn,:] = 1e99
+        dm[ii, :] = ki[ii] * rho[:] ** a[ii]
+    tc = np.zeros((nn + 1, n))
+    for ii in range(nn - 1):
+        tc[ii + 1, :] = (dm[ii, :] / dm[ii + 1, :]) ** (1.0 / (b[ii + 1] - b[ii]))
+    tc[nn, :] = 1e99
     kappa = np.zeros_like(rho)
     for ii in range(nn):
-        kappa = np.where(np.logical_and(temp>tc[ii,:],temp<tc[ii+1,:]), dm[ii]*temp**b[ii],kappa)
+        kappa = np.where(
+            np.logical_and(temp > tc[ii, :], temp < tc[ii + 1, :]),
+            dm[ii] * temp ** b[ii],
+            kappa,
+        )
 
     return kappa * Z / 0.01
 
@@ -50,7 +59,7 @@ def oplin(_Rho, _Temp, Z=0.01):
     """
 
     ts4 = 1.0e-4 * _Temp
-    rho13 = _Rho ** 0.333333333
+    rho13 = _Rho**0.333333333
     rho23 = rho13 * rho13
     ts42 = ts4 * ts4
     ts44 = ts42 * ts42
@@ -59,9 +68,9 @@ def oplin(_Rho, _Temp, Z=0.01):
     # init with no scattering
     opacity = bk7 * _Rho / (ts42 * np.sqrt(ts4))
 
-    m_0 = _Temp <= t456 * _Rho ** power2
-    m_0_1 = np.logical_and(m_0, _Temp > t234 * _Rho ** power1)
-    m_1 = np.logical_or(_Temp < t678 * _Rho ** power3, _Rho < 1.0e-10)
+    m_0 = _Temp <= t456 * _Rho**power2
+    m_0_1 = np.logical_and(m_0, _Temp > t234 * _Rho**power1)
+    m_1 = np.logical_or(_Temp < t678 * _Rho**power3, _Rho < 1.0e-10)
 
     # disjoint _0pacity laws for 5, 6, and 7.
     o5 = bk5 * rho23[m_1] * ts42[m_1] * ts4[m_1]
@@ -82,8 +91,8 @@ def oplin(_Rho, _Temp, Z=0.01):
     o4 = bk4 * rho23[m_0_1] / (ts48[m_0_1] * ts4[m_0_1])
     o5 = bk5 * rho23[m_0_1] * ts42[m_0_1] * ts4[m_0_1]
     # parameters used for smoothing
-    o4an = o4 ** 4
-    o3an = o3 ** 4
+    o4an = o4**4
+    o3an = o3**4
     # smoothed and continuous _0pacity law for regions 3, 4, and 5.
 
     opacity[m_0_1] = (
@@ -107,7 +116,7 @@ def oplin(_Rho, _Temp, Z=0.01):
 
     opacity[m_0] = (
         (o1an * o2an / (o1an + o2an)) ** 2 + (o3 / (1 + 1.0e22 / t10)) ** 4
-                   ) ** 0.25
+    ) ** 0.25
 
     return opacity * Z / 0.01
 
