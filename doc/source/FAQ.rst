@@ -16,3 +16,8 @@ A default value will be used in most cases. Make sure to set all parameters, so 
 Where do I find a list of Parameters?
 """""""""""""""""""""""""""""""""""""
 Head over to the Configuration -> config.yaml
+
+I want to debug but my runs take too long
+"""""""""""""""""""""""""""""""""""""""""
+Just use a higher value for the timestep (``DEF_TIMESTEP``), like 500 years. 
+But make sure to change it back when you want to do science!

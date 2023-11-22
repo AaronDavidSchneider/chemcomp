@@ -8,6 +8,7 @@ zip_output
 *.output
 *.err
 .idea
+*.vscode*
 
 # Created by https://www.gitignore.io/api/osx,latex,python,jupyternotebooks
 # Edit at https://www.gitignore.io/?templates=osx,latex,python,jupyternotebooks
