@@ -41,8 +41,14 @@ Included planet physics:
 
 The physical model is in depth explained in `(Schneider & Bitsch 2021a) <https://ui.adsabs.harvard.edu/abs/2021arXiv210513267S/abstract>`_. This wiki is only meant for explanations on the structure of `chemcomp`.
 
+Acknowledgments
+---------------
+* Aaron Schneider would like to thank Bertram Bitsch for his enormous support during the development of this code and for continuing to use the code together with his students.
+* Aaron Schneider would like to thank Cornelis Dullemond for providing the solver which (in adapted version) is used to solve the gas viscous disk equation and dust transport equation.
+* Aaron Schneider would like to thank everyone, who has already used chemcomp in their work and has contributed in fixing small bugs.
+
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
    :caption: Contents
 
    Installation
@@ -51,15 +57,10 @@ The physical model is in depth explained in `(Schneider & Bitsch 2021a) <https:/
    Configuration/Configuration
    Structure/Structure
    Disk-Only
-   Output
+   notebooks/basic_plotting/basic_plotting
    Publications
    FAQ
 
-Acknowledgments
----------------
-* Aaron Schneider would like to thank Bertram Bitsch for his enormous support during the development of this code and for continuing to use the code together with his students.
-* Aaron Schneider would like to thank Cornelis Dullemond for providing the solver which (in adapted version) is used to solve the gas viscous disk equation and dust transport equation.
-* Aaron Schneider would like to thank everyone, who has already used chemcomp in their work and has contributed in fixing small bugs.
 
 Indices and tables
 ==================

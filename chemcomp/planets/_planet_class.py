@@ -74,28 +74,28 @@ class DataObject(object):
         )
 
         self.dict_of_planet_units = {
-            "t": "u.s",
-            "M": "u.g",
-            "M_a": "u.g",
-            "M_c": "u.g",
-            "a_p": "u.cm",
-            "T": "u.K",
-            "comp_a": "u.g",
-            "comp_c": "u.g",
-            "tau_m": "u.s",
-            "sigma_g": "u.g/u.cm**2",
-            "gamma_tot": "u.g*u.cm**2/u.s**2",
-            "sigma_peb": "u.g/u.cm**2",
-            "pebble_flux": "u.g/u.s",
-            "peb_iso": "u.g",
+            "t": "s",
+            "M": "g",
+            "M_a": "g",
+            "M_c": "g",
+            "a_p": "cm",
+            "T": "K",
+            "comp_a": "g",
+            "comp_c": "g",
+            "tau_m": "s",
+            "sigma_g": "g/cm**2",
+            "gamma_tot": "g*cm**2/s**2",
+            "sigma_peb": "g/cm**2",
+            "pebble_flux": "g/s",
+            "peb_iso": "g",
         }
         self.dict_of_acc_units = {
-            "m_dot": "u.g/u.s",
-            "m_dot_a": "u.g/u.s",
-            "m_dot_c": "u.g/u.s",
-            "m_dot_a_chem": "u.g/u.s",
-            "m_dot_c_chem": "u.g/u.s",
-            "M_z": "u.g",
+            "m_dot": "g/s",
+            "m_dot_a": "g/s",
+            "m_dot_c": "g/s",
+            "m_dot_a_chem": "g/s",
+            "m_dot_c_chem": "g/s",
+            "M_z": "g",
         }
 
         self.list_of_planet_quantities = [

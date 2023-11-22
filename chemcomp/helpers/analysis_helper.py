@@ -229,6 +229,8 @@ class GrowthPlot:
             try:
                 with h5py.File(files[i], "r") as f:
                     units = dict(f["/planet/units"].attrs)
+                    # needed for new versions of astropy
+                    units = {key: unit.decode('utf-8').replace('u.','') for key, unit in units.items()}
                     keys = list(f["/planet"].keys())
                     keys = (
                         [k for k in keys if k in self._used_quantities]
