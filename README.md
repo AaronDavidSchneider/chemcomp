@@ -64,6 +64,9 @@ Please cite [Schneider & Bitsch(2021a)](https://ui.adsabs.harvard.edu/abs/2021A&
 -   [Danti, Bitsch & Mah (2023)](https://ui.adsabs.harvard.edu/abs/2023arXiv231002886D)</br>
     Composition of giant planets: the roles of pebbles and planetesimals
 
+-   [Chatziastros, Bitsch & Schneider (2023)](https://ui.adsabs.harvard.edu/abs/2023arXiv231012797C)</br>
+    Constraining the formation history of the HAT-P-11 system by atmospheric abundances
+
 And several more in preperation (last updated: 22.11.2023)
 
 

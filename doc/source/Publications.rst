@@ -29,5 +29,7 @@ Publications using ``chemcomp``
     How to make giant planets via pebble accretion
 * `Danti, Bitsch & Mah (2023) <https://ui.adsabs.harvard.edu/abs/2023arXiv231002886D>`_
     Composition of giant planets: the roles of pebbles and planetesimals
+* `Chatziastros, Bitsch & Schneider (2023) <https://ui.adsabs.harvard.edu/abs/2023arXiv231012797C>`_
+    Constraining the formation history of the HAT-P-11 system by atmospheric abundances
 
 And several more in preperation (last updated: 22.11.2023)
