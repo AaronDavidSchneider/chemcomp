@@ -33,7 +33,7 @@ Adjust paths in `chemcomp/helper/main_helper` if you need different directories 
 -   [Schneider & Bitsch (2021a)](https://ui.adsabs.harvard.edu/abs/2021A&A...654A..71S)</br>
     How drifting and evaporating pebbles shape giant planets. I. Heavy element content and atmospheric C/O
 
--   [Schneider & Bitsch (2021b)](https://ui.adsabs.harvard.edu/abs/2021A&A...654A..72SS)</br>
+-   [Schneider & Bitsch (2021b)](https://ui.adsabs.harvard.edu/abs/2021A&A...654A..72S)</br>
     How drifting and evaporating pebbles shape giant planets. II. Volatiles and refractories in atmospheres
 
 -   [Bitsch, Schneider & Kreidberg (2022)](https://ui.adsabs.harvard.edu/abs/2022A&A...665A.138B)</br>
