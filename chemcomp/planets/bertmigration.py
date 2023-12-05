@@ -379,7 +379,8 @@ class BertPlanet(Planet):
             f_P = 1.0 - np.exp(-(Gap**0.75) / 3.0)
 
         if self.past_pebble_iso:
-            _, m_dot_gas = self._accretion_models_dict["GasAccretion"].get_min()
+            # force m_dot_gas = m_dot_a as specified in the gas.py file
+            m_dot_gas = self._accretion_models_dict["GasAccretion"].m_dot_a
 
             if migphase:
                 self._sigma_HS = self._sigma_HS * (self._old_a_p / self.a_p) ** 1.5
