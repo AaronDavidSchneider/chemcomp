@@ -84,7 +84,7 @@ class GasAccretion(Accretion):
         self.m_dot_c_chem = self.chem_mask_array * self.m_dot_c
 
         if self.planet.past_pebble_iso:
-            self.regime, self.m_dot_a = self.get_min()
+            self.m_dot_a = 1.0 * earth_mass_cgs_value / Myr # fixed gas acc rate of 1 M_Earth per Myr
             self.m_dot_a_chem = self.planet.chemistry_gas * self.m_dot_a
             self.m_dot = self.m_dot_a + self.m_dot_c
 

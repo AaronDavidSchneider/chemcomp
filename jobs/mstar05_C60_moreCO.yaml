@@ -1,0 +1,12 @@
+par_1:
+  vals: [ 1e-4,1e-3 ]
+  name: ALPHA
+  section: config_disk
+
+par_2:
+  vals: [ 1,5,10 ]
+  name: u_frag
+  section: config_pebble_accretion
+
+output_name: solar_mstar05_C60_moreCO
+save_disk: True
