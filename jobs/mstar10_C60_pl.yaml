@@ -1,0 +1,7 @@
+par_1:
+  vals: [ 1e-4,1e-3 ]
+  name: ALPHA
+  section: config_disk
+
+output_name: solar_mstar10_C60_pl
+save_disk: False
