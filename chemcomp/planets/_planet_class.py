@@ -70,6 +70,7 @@ class DataObject(object):
                 "vr_dust",
                 "vr_gas",
                 "m_dot_components",
+                "aspect_ratio",
             ],
         )
 
