@@ -1,0 +1,10 @@
+# job file for simulations done in Mah et al. (2023)
+# paired with corresponding config file
+
+par_1:
+  vals: [ 1e-4,1e-3 ]
+  name: ALPHA
+  section: config_disk
+
+output_name: solar_mstar03_C60_001
+save_disk: True

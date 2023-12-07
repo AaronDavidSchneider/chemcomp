@@ -1,0 +1,15 @@
+# job file for simulations done in Mah et al. (2023)
+# paired with corresponding config file
+
+par_1:
+  vals: [ 1e-4,1e-3 ]
+  name: ALPHA
+  section: config_disk
+
+par_2:
+  vals: [ 1,5,10 ]
+  name: u_frag
+  section: config_pebble_accretion
+
+output_name: solar_mstar10_C60
+save_disk: True
