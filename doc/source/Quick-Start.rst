@@ -57,3 +57,9 @@ These examples include:
     Job file, used to generate the growthtracks of planets in the first chemcomp paper (Schneider & Bitsch 2021a)
 * ``jobs/paper_2_Jupiter.yaml``
     Job file, used to generate Jupiter like planets for the second chemcomp paper (Schneider & Bitsch 2021b)
+* ``jobs/mstar01_C60.yaml``
+    Job file, used to generate a disc around a 0.1 M_Sun star (Mah, Bitsch et al. 2023). Job files for other stellar masses are also included, check out the ``jobs`` folder! These job files are to be used with the corresponding config files.
+* ``jobs/mstar01_C60_moreCO.yaml``
+    Job file, used to generate a disc around a 0.1 M_Sun star but with more CO and less CH4 in the disc (Mah, Bitsch et al. 2023)
+* ``jobs/mstar01_C60_001.yaml``
+    Job file, used to generate a less massive disc around a 0.1 M_Sun star (Mah, Bitsch et al. 2023)
